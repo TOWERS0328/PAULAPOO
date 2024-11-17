@@ -9,20 +9,20 @@ public class CConexion {
         cConexion.conecarDB();
     }
 
-    Connection cx = null;
+    static Connection cx = null;
 
-    String user = "";
-    String password = "";
-    String bd = "";
-    String ip = "localhost";
-    String puerto = "3306";
-    String cadena = "jdbc:mysql://" + ip + ":" + puerto + "/" + bd;
+    static String  user = "";
+    static String  password = "";
+    static String  bd = "";
+    static String  ip = "localhost";
+    static String  puerto = "3306";
+    static String  cadena = "jdbc:mysql://" + ip + ":" + puerto + "/" + bd;
 
     public CConexion() {
 
     }
 
-    public Connection conecarDB() {
+    public static Connection conecarDB() {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
