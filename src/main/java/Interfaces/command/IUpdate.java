@@ -1,4 +1,7 @@
 package Interfaces.command;
 
-public interface IUpdate {
+import java.sql.SQLException;
+
+public interface IUpdate<Y> {
+    void update(Y y) throws SQLException;
 }
