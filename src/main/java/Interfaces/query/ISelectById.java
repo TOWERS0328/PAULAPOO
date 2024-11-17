@@ -1,4 +1,5 @@
 package Interfaces.query;
 
-public interface ISelectById {
+public interface ISelectById<T> {
+    T getById(T id);
 }

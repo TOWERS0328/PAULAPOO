@@ -9,13 +9,13 @@ public class User {
     private String roll;
     private String lastName;
 
-    public User(String nome, String idUser, int id, String phone, String roll, String password) {
+    public User(String nome, String idUser, int id, String phone,  String roll, String lastName) {
         this.nome = nome;
         this.idUser = idUser;
         this.id = id;
         this.phone = phone;
         this.roll = roll;
-        this.password = password;
+        this.lastName = lastName;
     }
 
     public User(String nome, String idUser, String phone, String password, String lastName) {
