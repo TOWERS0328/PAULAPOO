@@ -1,6 +1,8 @@
 
 package Vistas;
 
+import javax.swing.JOptionPane;
+
 
 
 /**
@@ -20,14 +22,14 @@ public class Login extends javax.swing.JFrame {
     }
 
       private void limpiarCampos() {
-        txtCorreo.setText("");
+        txtNumeroCelular.setText("");
         txtContraseña.setText("");
       
     }
       
        private void configurarNavegacionConEnter() {
     // Navegación con Enter entre los campos de texto
-    txtCorreo.addActionListener(e -> txtContraseña.requestFocus());  
+    txtNumeroCelular.addActionListener(e -> txtContraseña.requestFocus());  
    
 }
     /**
@@ -46,7 +48,7 @@ public class Login extends javax.swing.JFrame {
         BtnVentanaIniciar = new javax.swing.JButton();
         BtnVentanaRegistrar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtCorreo = new javax.swing.JTextField();
+        txtNumeroCelular = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
         btnIniciarSesion = new javax.swing.JButton();
@@ -65,8 +67,8 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel2.setText("Inicia sesión o crea una cuenta para continuar");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 340, 24));
+        jLabel2.setText("Inicia sesión para continuar");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 210, 24));
 
         BtnVentanaIniciar.setBackground(new java.awt.Color(255, 255, 255));
         BtnVentanaIniciar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -88,59 +90,27 @@ public class Login extends javax.swing.JFrame {
                 BtnVentanaRegistrarActionPerformed(evt);
             }
         });
-<<<<<<< Updated upstream
-        jPanel1.add(BtnVentanaRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 130, 30));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel7.setText("Selecciona tu rol");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
-
-        BtnCliente.setBackground(new java.awt.Color(255, 255, 255));
-        BtnCliente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BtnCliente.setForeground(new java.awt.Color(0, 0, 0));
-        BtnCliente.setText("User");
-        BtnCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnClienteActionPerformed(evt);
-            }
-        });
-        jPanel1.add(BtnCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 80, 30));
-
-        BtnAdministrador.setBackground(new java.awt.Color(255, 255, 255));
-        BtnAdministrador.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BtnAdministrador.setForeground(new java.awt.Color(0, 0, 0));
-        BtnAdministrador.setText("Administrador");
-        jPanel1.add(BtnAdministrador, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, -1, 30));
-
-        BtnRepartidor.setBackground(new java.awt.Color(255, 255, 255));
-        BtnRepartidor.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        BtnRepartidor.setForeground(new java.awt.Color(0, 0, 0));
-        BtnRepartidor.setText("Repartidor");
-        jPanel1.add(BtnRepartidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, 30));
-=======
         jPanel1.add(BtnVentanaRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 130, 30));
->>>>>>> Stashed changes
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Correo Electrónico");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        jLabel3.setText("Número Celular");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
 
-        txtCorreo.setBackground(new java.awt.Color(255, 255, 255));
-        txtCorreo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtCorreo.setForeground(new java.awt.Color(0, 0, 0));
-        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+        txtNumeroCelular.setBackground(new java.awt.Color(255, 255, 255));
+        txtNumeroCelular.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtNumeroCelular.setForeground(new java.awt.Color(0, 0, 0));
+        txtNumeroCelular.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCorreoActionPerformed(evt);
+                txtNumeroCelularActionPerformed(evt);
             }
         });
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 380, 30));
+        jPanel1.add(txtNumeroCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 380, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Contraseña");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, 20));
 
         txtContraseña.setBackground(new java.awt.Color(255, 255, 255));
         txtContraseña.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -190,12 +160,34 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
-        // TODO add your handling code here:
+        
+    String contraseña = txtContraseña.getText().trim();  
+
+    
+    if (contraseña.isEmpty()) {
+        
+        JOptionPane.showMessageDialog(null, "El campo de contraseña no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+       
+        txtContraseña.requestFocus();
+    }
     }//GEN-LAST:event_txtContraseñaActionPerformed
 
-    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+    private void txtNumeroCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroCelularActionPerformed
+         
+   
+    String numeroCelular = txtNumeroCelular.getText().trim();  
+    
+    if (numeroCelular.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El campo no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        txtNumeroCelular.requestFocus(); 
+    } else if (numeroCelular.length() != 10 || !numeroCelular.matches("\\d+")) {
         
-    }//GEN-LAST:event_txtCorreoActionPerformed
+        JOptionPane.showMessageDialog(null, "Un número de celular debe tener exactamente 10 dígitos. Ejemplo: 3022240701", "Error", JOptionPane.ERROR_MESSAGE);
+        txtNumeroCelular.setText(""); 
+        txtNumeroCelular.requestFocus(); 
+    }
+
+    }//GEN-LAST:event_txtNumeroCelularActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,6 +237,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField txtContraseña;
-    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtNumeroCelular;
     // End of variables declaration//GEN-END:variables
 }

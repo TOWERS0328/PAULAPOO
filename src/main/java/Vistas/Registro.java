@@ -1,6 +1,8 @@
 
 package Vistas;
 
+import javax.swing.JOptionPane;
+
 
 
 
@@ -13,24 +15,22 @@ public class Registro extends javax.swing.JFrame {
     public Registro() {
         initComponents();
          setLocationRelativeTo(null);
-        configurarNavegacionConEnter();
+      
     }
     
-    private void configurarNavegacionConEnter() {
-    // Navegación con Enter entre los campos de texto
-    txtNombre.addActionListener(e -> txtCorreo.requestFocus());  
-    txtCorreo.addActionListener(e -> txtContraseña.requestFocus());       
-    
-}
+   
         
     
-      
-    private void limpiarCampos() {
+      private void limpiarCampos() {
+    
     txtNombre.setText("");
-    txtCorreo.setText("");
+    TxtApellido.setText("");
+    txtCedula.setText("");
     txtContraseña.setText("");
-    System.out.println("Los campos han sido limpiados"); // Mensaje de prueba
+    TxtRepetirContraseña.setText("");
 }
+
+   
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +40,7 @@ public class Registro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -48,13 +49,18 @@ public class Registro extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtCorreo = new javax.swing.JTextField();
+        txtCedula = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtContraseña = new javax.swing.JPasswordField();
         btnCrearCuenta = new javax.swing.JButton();
-        comboTipo = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
+        TxtApellido = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        TxtRepetirContraseña = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+
+        jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -63,12 +69,12 @@ public class Registro extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Iniciar Sesión");
+        jLabel1.setText("Crear Cuenta");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 30, 240, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Inicia sesión o crea una cuenta para continuar");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 320, -1));
+        jLabel2.setText("Crea una cuenta para continuar");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 230, -1));
 
         BtnIniciarSesion.setBackground(new java.awt.Color(255, 255, 255));
         BtnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -90,59 +96,45 @@ public class Registro extends javax.swing.JFrame {
                 BtnRegistrarseActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 120, 130, -1));
+        jPanel1.add(BtnRegistrarse, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 140, -1));
 
-<<<<<<< Updated upstream
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setText("User");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, 30));
-
-        jButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 0, 0));
-        jButton4.setText("Administrador");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, -1, 30));
-
-        jButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(0, 0, 0));
-        jButton5.setText("Repartidor");
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, -1, 30));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Seleciona tu rol");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, -1, -1));
-
-=======
->>>>>>> Stashed changes
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("Nombre Completo");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+        jLabel4.setText("Nombre ");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         txtNombre.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 340, 30));
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 340, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel5.setText("Correo Electrónico");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, -1, -1));
+        jLabel5.setText("Cedula");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
 
-        txtCorreo.setBackground(new java.awt.Color(255, 255, 255));
-        txtCorreo.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 340, 30));
+        txtCedula.setBackground(new java.awt.Color(255, 255, 255));
+        txtCedula.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtCedula.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 340, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Contraseña");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
 
         txtContraseña.setBackground(new java.awt.Color(255, 255, 255));
+        txtContraseña.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtContraseña.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 340, 30));
+        txtContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraseñaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 340, 30));
 
         btnCrearCuenta.setBackground(new java.awt.Color(255, 102, 0));
         btnCrearCuenta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -153,14 +145,37 @@ public class Registro extends javax.swing.JFrame {
                 btnCrearCuentaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCrearCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, 340, 30));
+        jPanel1.add(btnCrearCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 370, 30));
 
-        comboTipo.setBackground(new java.awt.Color(255, 255, 255));
-        comboTipo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        comboTipo.setForeground(new java.awt.Color(0, 0, 0));
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Cliente", "Administrador", "Repartidor" }));
-        comboTipo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo de Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        jPanel1.add(comboTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 160, 70));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Apellido");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
+
+        TxtApellido.setBackground(new java.awt.Color(255, 255, 255));
+        TxtApellido.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TxtApellido.setForeground(new java.awt.Color(0, 0, 0));
+        TxtApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtApellidoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TxtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 340, 30));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Repetir Contreseña");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, -1, -1));
+
+        TxtRepetirContraseña.setBackground(new java.awt.Color(255, 255, 255));
+        TxtRepetirContraseña.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TxtRepetirContraseña.setForeground(new java.awt.Color(0, 0, 0));
+        TxtRepetirContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtRepetirContraseñaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TxtRepetirContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 340, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Imágenes\\Simple Lined White Login Page Wireframe Website UI Prototype.png")); // NOI18N
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 580));
@@ -190,11 +205,99 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnRegistrarseActionPerformed
 
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
+
+        String nombre = txtNombre.getText().trim();
+        String apellido = TxtApellido.getText().trim();
+        String cedula = txtCedula.getText().trim();
+        String contraseña = new String(txtContraseña.getPassword()).trim();
+        String repetirContraseña = TxtRepetirContraseña.getText().trim();
+
+        if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty() || contraseña.isEmpty() || repetirContraseña.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!contraseña.equals(repetirContraseña)) {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
+            txtContraseña.setText("");
+            TxtRepetirContraseña.setText("");
+            txtContraseña.requestFocus();
+            return;
+        }
+
         
+        JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente.");
+            
          
    
     
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        
+    String nombre = txtNombre.getText().trim();  
+
+    
+    if (nombre.isEmpty()) {
+        
+        JOptionPane.showMessageDialog(null, "El campo de nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+       
+        txtNombre.requestFocus();
+    }
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
+    
+    String contraseña = txtContraseña.getText().trim();
+    String repetirContraseña = TxtRepetirContraseña.getText().trim();
+
+    
+    if (contraseña.isEmpty() || repetirContraseña.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Ambos campos de contraseña no pueden estar vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
+        txtContraseña.requestFocus();
+    } else if (!contraseña.equals(repetirContraseña)) {
+        
+        JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden. Por favor, verifique.", "Error", JOptionPane.ERROR_MESSAGE);
+        
+        txtContraseña.setText("");
+        TxtRepetirContraseña.setText("");
+       
+        txtContraseña.requestFocus();
+    }
+    }//GEN-LAST:event_txtContraseñaActionPerformed
+
+    private void TxtRepetirContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtRepetirContraseñaActionPerformed
+      
+    String contraseña = txtContraseña.getText().trim();
+    String repetirContraseña = TxtRepetirContraseña.getText().trim();
+
+    
+    if (contraseña.isEmpty() || repetirContraseña.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Ambos campos de contraseña no pueden estar vacíos.", "Error", JOptionPane.ERROR_MESSAGE);
+        TxtRepetirContraseña.requestFocus();
+    } else if (!contraseña.equals(repetirContraseña)) {
+        
+        JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden. Por favor, verifique.", "Error", JOptionPane.ERROR_MESSAGE);
+        
+        txtContraseña.setText("");
+        TxtRepetirContraseña.setText("");
+        
+        txtContraseña.requestFocus();
+    }
+    }//GEN-LAST:event_TxtRepetirContraseñaActionPerformed
+
+    private void TxtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtApellidoActionPerformed
+    
+    String apellido = TxtApellido.getText().trim();  
+
+    
+    if (apellido.isEmpty()) {
+        
+        JOptionPane.showMessageDialog(null, "El campo de apellido no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        
+        TxtApellido.requestFocus();
+    }
+    }//GEN-LAST:event_TxtApellidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,18 +337,22 @@ public class Registro extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnIniciarSesion;
     private javax.swing.JButton BtnRegistrarse;
+    private javax.swing.JTextField TxtApellido;
+    private javax.swing.JTextField TxtRepetirContraseña;
     private javax.swing.JButton btnCrearCuenta;
-    private javax.swing.JComboBox<String> comboTipo;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField txtCedula;
     private javax.swing.JPasswordField txtContraseña;
-    private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
