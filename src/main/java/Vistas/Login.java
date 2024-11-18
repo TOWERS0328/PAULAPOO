@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Vistas;
+
+
 
 /**
  *
@@ -15,8 +14,22 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setLocationRelativeTo(null);
+        
+        configurarNavegacionConEnter();
     }
 
+      private void limpiarCampos() {
+        txtCorreo.setText("");
+        txtContraseña.setText("");
+      
+    }
+      
+       private void configurarNavegacionConEnter() {
+    // Navegación con Enter entre los campos de texto
+    txtCorreo.addActionListener(e -> txtContraseña.requestFocus());  
+   
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,15 +45,11 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         BtnVentanaIniciar = new javax.swing.JButton();
         BtnVentanaRegistrar = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        BtnCliente = new javax.swing.JButton();
-        BtnAdministrador = new javax.swing.JButton();
-        BtnRepartidor = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        TxtEmail = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        TxtContraseña = new javax.swing.JPasswordField();
-        jButton3 = new javax.swing.JButton();
+        txtContraseña = new javax.swing.JPasswordField();
+        btnIniciarSesion = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -52,12 +61,12 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Iniciar Sesión");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 240, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 240, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel2.setText("Accede a tu cuenta según tu rol");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 230, 24));
+        jLabel2.setText("Inicia sesión o crea una cuenta para continuar");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 340, 24));
 
         BtnVentanaIniciar.setBackground(new java.awt.Color(255, 255, 255));
         BtnVentanaIniciar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -68,7 +77,7 @@ public class Login extends javax.swing.JFrame {
                 BtnVentanaIniciarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnVentanaIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 130, 140, 30));
+        jPanel1.add(BtnVentanaIniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 140, 30));
 
         BtnVentanaRegistrar.setBackground(new java.awt.Color(255, 255, 255));
         BtnVentanaRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -79,6 +88,7 @@ public class Login extends javax.swing.JFrame {
                 BtnVentanaRegistrarActionPerformed(evt);
             }
         });
+<<<<<<< Updated upstream
         jPanel1.add(BtnVentanaRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 130, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -108,38 +118,55 @@ public class Login extends javax.swing.JFrame {
         BtnRepartidor.setForeground(new java.awt.Color(0, 0, 0));
         BtnRepartidor.setText("Repartidor");
         jPanel1.add(BtnRepartidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, -1, 30));
+=======
+        jPanel1.add(BtnVentanaRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 130, 30));
+>>>>>>> Stashed changes
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Correo Electrónico");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
 
-        TxtEmail.setBackground(new java.awt.Color(255, 255, 255));
-        TxtEmail.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TxtEmail.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(TxtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 320, 380, 30));
+        txtCorreo.setBackground(new java.awt.Color(255, 255, 255));
+        txtCorreo.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtCorreo.setForeground(new java.awt.Color(0, 0, 0));
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorreoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 380, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Contraseña");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, -1, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, 20));
 
-        TxtContraseña.setBackground(new java.awt.Color(255, 255, 255));
-        TxtContraseña.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TxtContraseña.setForeground(new java.awt.Color(0, 0, 0));
-        TxtContraseña.setText("jPasswordField1");
-        jPanel1.add(TxtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, 380, 30));
+        txtContraseña.setBackground(new java.awt.Color(255, 255, 255));
+        txtContraseña.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtContraseña.setForeground(new java.awt.Color(0, 0, 0));
+        txtContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContraseñaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 320, 390, 30));
 
-        jButton3.setBackground(new java.awt.Color(255, 102, 0));
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Iniciar Sesión");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 470, 390, 30));
+        btnIniciarSesion.setBackground(new java.awt.Color(255, 102, 0));
+        btnIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnIniciarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        btnIniciarSesion.setText("Iniciar Sesión");
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarSesionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 390, 30));
 
         jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Imágenes\\Simple Lined White Login Page Wireframe Website UI Prototype.png")); // NOI18N
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 520));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 460, 460));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 510, 520));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 450, 460));
 
         jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Imágenes\\UI Login Page Desktop Prototype (1).png")); // NOI18N
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 660, 600));
@@ -147,15 +174,8 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnClienteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnClienteActionPerformed
-
     private void BtnVentanaIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVentanaIniciarActionPerformed
-         // Asumiendo que la autenticación fue exitosa
-    Login ventanaLogin  = new Login ();
-    ventanaLogin .setVisible(true);
-    this.dispose(); // Cierra la ventana de login
+   
     }//GEN-LAST:event_BtnVentanaIniciarActionPerformed
 
     private void BtnVentanaRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVentanaRegistrarActionPerformed
@@ -164,6 +184,18 @@ public class Login extends javax.swing.JFrame {
     ventanaRegistro.setVisible(true);
     this.dispose(); // Cierra la ventana de login
     }//GEN-LAST:event_BtnVentanaRegistrarActionPerformed
+
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+     
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtContraseñaActionPerformed
+
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+        
+    }//GEN-LAST:event_txtCorreoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,22 +233,18 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnAdministrador;
-    private javax.swing.JButton BtnCliente;
-    private javax.swing.JButton BtnRepartidor;
     private javax.swing.JButton BtnVentanaIniciar;
     private javax.swing.JButton BtnVentanaRegistrar;
-    private javax.swing.JPasswordField TxtContraseña;
-    private javax.swing.JTextField TxtEmail;
+    private javax.swing.JButton btnIniciarSesion;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPasswordField txtContraseña;
+    private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
 }
