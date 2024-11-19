@@ -11,9 +11,9 @@ public class CConexion {
 
     static Connection cx = null;
 
-    static String  user = "";
-    static String  password = "";
-    static String  bd = "";
+    static String  user = "root";
+    static String  password = "Juan304@@";
+    static String  bd = "sistema_usuarios";
     static String  ip = "localhost";
     static String  puerto = "3306";
     static String  cadena = "jdbc:mysql://" + ip + ":" + puerto + "/" + bd;
@@ -27,6 +27,7 @@ public class CConexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             cx = DriverManager.getConnection(cadena, user, password);
+            JOptionPane.showConfirmDialog(null, "GOODDDDD");
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, "No se logro conectar con la base de datos, error: " + e.toString());
         }

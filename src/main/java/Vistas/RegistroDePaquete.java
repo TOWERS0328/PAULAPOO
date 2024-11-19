@@ -1,21 +1,25 @@
 
 package Vistas;
 
+import Logic.command.DeletePaquete;
+import Logic.command.InsertPaquete;
+import Logic.command.UpdatePaquete;
 import Model.Paquete;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
  * @author juand
  */
 public class RegistroDePaquete extends javax.swing.JFrame {
- private DefaultTableModel modeloTabla;
+
     
     /**
      * Creates new form RegistroDePaquete
@@ -27,42 +31,32 @@ public class RegistroDePaquete extends javax.swing.JFrame {
         registrarPaquete();
         
          
-     TxtNumeroSeguimiento.setEditable(false); 
+ 
     Calendar calendar = Calendar.getInstance();
-    jDateChooser1.setDate(calendar.getTime()); 
-    jDateChooser1.setSelectableDateRange(calendar.getTime(), calendar.getTime()); 
+    JCalender.setDate(calendar.getTime()); 
+    JCalender.setSelectableDateRange(calendar.getTime(), calendar.getTime()); 
     
-        modeloTabla = new DefaultTableModel();
-        modeloTabla.addColumn("N° Seguimiento");
-        modeloTabla.addColumn("Descripción");
-        modeloTabla.addColumn("Fecha Ingreso");
-        modeloTabla.addColumn("Ubicación Actual");
-        modeloTabla.addColumn("Destino");
-        
-        tablaPaquetes.setModel(modeloTabla);
-        
-   
+      
     }
 
-    
-        
-    
      private void configurarNavegacionConEnter() {
-    // Navegación con Enter entre los campos de texto
-    TxtDescripcion.addActionListener(e -> TxtUbicacionActual.requestFocus());  
+    
+    ComboCategorias.addActionListener(e -> TxtUbicacionActual.requestFocus());  
     TxtUbicacionActual.addActionListener(e -> TxtDestino.requestFocus());       
     TxtDestino.addActionListener(e -> BtnRegistrar.requestFocus());             
     
      }
      
          private String generarNumeroSeguimiento() {
-        // Generar un UUID único para cada paquete
-        return UUID.randomUUID().toString();
+      
+        String numeroSeguimiento = UUID.randomUUID().toString();
+        TxtNumeroSeguimiento.setText(numeroSeguimiento); 
+        return numeroSeguimiento;
     }
      
     private void limpiarCampos() {
-        TxtDescripcion.setText("");
-        jDateChooser1.setDate(null);
+         ComboCategorias.setSelectedIndex(0); 
+        JCalender.setDate(null);
         TxtDestino.setText("");
         TxtUbicacionActual.setText("");
         TxtNumeroSeguimiento.setText("");
@@ -70,12 +64,12 @@ public class RegistroDePaquete extends javax.swing.JFrame {
     
     
 private void registrarPaquete() {
-    String descripcion = TxtDescripcion.getText();
-    Date fechaIngreso = jDateChooser1.getDate(); // Obtener la fecha seleccionada
+     String categorias = ComboCategorias.getSelectedItem() != null ? ComboCategorias.getSelectedItem().toString() : "";
+    Date fechaIngreso = JCalender.getDate(); // Obtener la fecha seleccionada
     String ubicacionActual = TxtUbicacionActual.getText();
     String destino = TxtDestino.getText();
 
-    if (descripcion.isEmpty() || fechaIngreso == null || destino.isEmpty() || ubicacionActual.isEmpty()) {
+    if (categorias.isEmpty() || fechaIngreso == null || destino.isEmpty() || ubicacionActual.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
         return;
     }
@@ -84,13 +78,7 @@ private void registrarPaquete() {
     String numeroSeguimiento = generarNumeroSeguimiento();
     TxtNumeroSeguimiento.setText(numeroSeguimiento); // Asignar el número de seguimiento al campo
 
-    LocalDate fechaIngresoLocal = fechaIngreso.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-
-    // Añadir los datos al modelo de la tabla
-    modeloTabla.addRow(new Object[]{numeroSeguimiento, descripcion, fechaIngresoLocal, ubicacionActual, destino});
-
-    // Limpiar los campos
-    limpiarCampos();
+    
 }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,19 +93,18 @@ private void registrarPaquete() {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         TxtNumeroSeguimiento = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        TxtDescripcion = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        JCalender = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         TxtUbicacionActual = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         TxtDestino = new javax.swing.JTextField();
         BtnRegistrar = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaPaquetes = new javax.swing.JTable();
-        btnRegistrar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+        ComboCategorias = new javax.swing.JComboBox<>();
+        TxCedulaRepartidor = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -145,23 +132,14 @@ private void registrarPaquete() {
         });
         jPanel1.add(TxtNumeroSeguimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 260, 30));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("Descripción");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, -1, -1));
-
-        TxtDescripcion.setBackground(new java.awt.Color(255, 255, 255));
-        TxtDescripcion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jPanel1.add(TxtDescripcion, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 240, 30));
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Fecha de Ingreso");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
-        jDateChooser1.setBackground(new java.awt.Color(255, 255, 255));
-        jDateChooser1.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel1.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 180, 30));
+        JCalender.setBackground(new java.awt.Color(255, 255, 255));
+        JCalender.setForeground(new java.awt.Color(204, 204, 204));
+        jPanel1.add(JCalender, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 180, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
@@ -203,55 +181,38 @@ private void registrarPaquete() {
         });
         jPanel1.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, 30));
 
-        tablaPaquetes.setBackground(new java.awt.Color(255, 255, 255));
-        tablaPaquetes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tablaPaquetes.setForeground(new java.awt.Color(0, 0, 0));
-        tablaPaquetes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "N° Seguimiento", "Descripción", "Fecha De Inicio", "Ubicación Actual", "Cedula de Repartidor"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tablaPaquetes);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 770, 130));
-
-        btnRegistrar.setBackground(new java.awt.Color(255, 102, 0));
-        btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnRegistrar.setText("Editar");
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setBackground(new java.awt.Color(255, 102, 0));
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("Editar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, -1, 30));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, 30));
+
+        ComboCategorias.setBackground(new java.awt.Color(255, 255, 255));
+        ComboCategorias.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ComboCategorias.setForeground(new java.awt.Color(0, 0, 0));
+        ComboCategorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Documentos", "Electrónicos", "Ropa y accesorios", "Hogar y decoración" }));
+        ComboCategorias.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Categorías", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel1.add(ComboCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 70, 150, 50));
+
+        TxCedulaRepartidor.setBackground(new java.awt.Color(255, 255, 255));
+        TxCedulaRepartidor.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TxCedulaRepartidor.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(TxCedulaRepartidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, 130, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("Cedula del Repartidor");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Imágenes\\Simple Lined White Login Page Wireframe Website UI Prototype.png")); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 510));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 380));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 790, 510));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 790, 380));
 
         jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Imágenes\\UI Login Page Desktop Prototype (1).png")); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 870, 580));
@@ -263,60 +224,72 @@ private void registrarPaquete() {
       
     }//GEN-LAST:event_TxtNumeroSeguimientoActionPerformed
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        
-    }//GEN-LAST:event_btnRegistrarActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+    
+     
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        int filaSeleccionada = tablaPaquetes.getSelectedRow();
-    if (filaSeleccionada >= 0) {
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que quieres eliminar este paquete?", "Confirmación", JOptionPane.YES_NO_OPTION);
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            modeloTabla.removeRow(filaSeleccionada); // Eliminar la fila seleccionada
-            JOptionPane.showMessageDialog(this, "Paquete eliminado.");
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor, selecciona una fila para borrar.");
-    }
-    }//GEN-LAST:event_btnBorrarActionPerformed
+       
+    String numeroSeguimiento = TxtNumeroSeguimiento.getText();  
 
-    private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
-          // Obtener datos del formulario
-    String descripcion = TxtDescripcion.getText();
-    Date fechaIngreso = jDateChooser1.getDate();  // Verifica que jDateChooser1 esté retornando un objeto Date
-    String ubicacionActual = TxtUbicacionActual.getText();
-    String destino = TxtDestino.getText();
-
-    // Validación de campos
-    if (descripcion.isEmpty() || fechaIngreso == null || destino.isEmpty() || ubicacionActual.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.");
+    if (numeroSeguimiento.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Por favor ingresa el número de seguimiento.");
         return;
     }
 
-    // Generar el número de seguimiento
-    String numeroSeguimiento = generarNumeroSeguimiento();
-    TxtNumeroSeguimiento.setText(numeroSeguimiento);
+    
+    Paquete paquete = new Paquete();
+    paquete.setNumeroSeguimiento(numeroSeguimiento);
 
-    // Convertir fecha a LocalDate
-    LocalDate fechaIngresoLocal = fechaIngreso.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    
+    DeletePaquete deletePaquete = new DeletePaquete();
 
-    // Crear el objeto Paquete y almacenarlo
     try {
-     //   Paquete paquete = new Paquete(numeroSeguimiento, descripcion, fechaIngresoLocal, ubicacionActual, destino);
-        //paqueteManager.agregarPaquete(paquete); // Llama al método agregarPaquete de PaqueteManager
-
-        // Añadir los datos al modelo de la tabla
-        modeloTabla.addRow(new Object[]{numeroSeguimiento, descripcion, fechaIngresoLocal, ubicacionActual, destino});
-
-        // Limpiar los campos del formulario
-        limpiarCampos();
-    } catch (IllegalArgumentException e) {
-        // Mostrar un mensaje específico si ya existe un paquete con el mismo número de seguimiento
-        JOptionPane.showMessageDialog(this, e.getMessage(), "Error de registro", JOptionPane.ERROR_MESSAGE);
-    } catch (Exception e) {
-        // Capturar cualquier otro tipo de error
-        JOptionPane.showMessageDialog(this, "Error al registrar el paquete: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        
+        deletePaquete.delete(paquete);
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al intentar eliminar el paquete: " + e.getMessage());
     }
+
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
+    
+
+    String numeroSeguimiento = TxtNumeroSeguimiento.getText().trim();
+    String categorias = ComboCategorias.getSelectedItem() != null ? ComboCategorias.getSelectedItem().toString() : "";
+    Date fechaIngreso = JCalender.getDate(); 
+    String ubicacionActual = TxtUbicacionActual.getText().trim();
+    String destino = TxtDestino.getText().trim();
+    String cedula = TxCedulaRepartidor.getText().trim();
+
+    
+    if (numeroSeguimiento.isEmpty() || categorias.isEmpty() || fechaIngreso == null || 
+        ubicacionActual.isEmpty() || destino.isEmpty() || cedula.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+   
+    LocalDate fechaIngresoLocalDate = fechaIngreso.toInstant()
+            .atZone(ZoneId.systemDefault())
+            .toLocalDate();
+
+    
+    Paquete paquete = new Paquete(numeroSeguimiento, categorias, fechaIngresoLocalDate, ubicacionActual, destino, cedula);
+
+    
+    InsertPaquete insertPaquete = new InsertPaquete();
+    try {
+        insertPaquete.insert(paquete);
+        JOptionPane.showMessageDialog(this, "Paquete registrado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+         limpiarCampos();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error al guardar el paquete: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+         limpiarCampos();
+    }
+
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     /**
@@ -356,13 +329,14 @@ private void registrarPaquete() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnRegistrar;
-    private javax.swing.JTextField TxtDescripcion;
+    private javax.swing.JComboBox<String> ComboCategorias;
+    private com.toedter.calendar.JDateChooser JCalender;
+    private javax.swing.JTextField TxCedulaRepartidor;
     private javax.swing.JTextField TxtDestino;
     private javax.swing.JTextField TxtNumeroSeguimiento;
     private javax.swing.JTextField TxtUbicacionActual;
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBorrar;
-    private javax.swing.JButton btnRegistrar;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -372,7 +346,5 @@ private void registrarPaquete() {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaPaquetes;
     // End of variables declaration//GEN-END:variables
 }

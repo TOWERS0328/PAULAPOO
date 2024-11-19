@@ -8,11 +8,10 @@ import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class InsertUser implements IInsert<User> {
 
-    private static final String INSERT = "Insert into users (name, idUser, phone, password, lastname) values(?,?,?,?, ?)";
+    private static final String INSERT = "Insert into users (nome, idUser, phone, password, lastname) values(?,?,?,?, ?)";
 
     @Override
     public void insert(User user) throws SQLException {

@@ -1,6 +1,10 @@
 
 package Vistas;
 
+import Interfaces.command.IInsert;
+import Logic.command.InsertUser;
+import Model.User;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 
@@ -11,7 +15,7 @@ import javax.swing.JOptionPane;
  * @author juand
  */
 public class Registro extends javax.swing.JFrame {
-
+    
     public Registro() {
         initComponents();
          setLocationRelativeTo(null);
@@ -57,6 +61,8 @@ public class Registro extends javax.swing.JFrame {
         TxtApellido = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         TxtRepetirContraseña = new javax.swing.JTextField();
+        wertyui = new javax.swing.JLabel();
+        txtNumeroCelular = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
 
@@ -104,6 +110,7 @@ public class Registro extends javax.swing.JFrame {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         txtNombre.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNombreActionPerformed(evt);
@@ -114,17 +121,22 @@ public class Registro extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Cedula");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
 
         txtCedula.setBackground(new java.awt.Color(255, 255, 255));
         txtCedula.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtCedula.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 340, 30));
+        txtCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCedulaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtCedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 340, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Contraseña");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, -1, -1));
 
         txtContraseña.setBackground(new java.awt.Color(255, 255, 255));
         txtContraseña.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -134,7 +146,7 @@ public class Registro extends javax.swing.JFrame {
                 txtContraseñaActionPerformed(evt);
             }
         });
-        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 340, 30));
+        jPanel1.add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 340, 30));
 
         btnCrearCuenta.setBackground(new java.awt.Color(255, 102, 0));
         btnCrearCuenta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -145,12 +157,12 @@ public class Registro extends javax.swing.JFrame {
                 btnCrearCuentaActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCrearCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 540, 370, 30));
+        jPanel1.add(btnCrearCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 580, 370, 30));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Apellido");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
         TxtApellido.setBackground(new java.awt.Color(255, 255, 255));
         TxtApellido.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -160,12 +172,12 @@ public class Registro extends javax.swing.JFrame {
                 TxtApellidoActionPerformed(evt);
             }
         });
-        jPanel1.add(TxtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 340, 30));
+        jPanel1.add(TxtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 340, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Repetir Contreseña");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, -1, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, -1, -1));
 
         TxtRepetirContraseña.setBackground(new java.awt.Color(255, 255, 255));
         TxtRepetirContraseña.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -175,12 +187,27 @@ public class Registro extends javax.swing.JFrame {
                 TxtRepetirContraseñaActionPerformed(evt);
             }
         });
-        jPanel1.add(TxtRepetirContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 340, 30));
+        jPanel1.add(TxtRepetirContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 530, 340, 30));
+
+        wertyui.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        wertyui.setForeground(new java.awt.Color(0, 0, 0));
+        wertyui.setText("Número Celular");
+        jPanel1.add(wertyui, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, -1, -1));
+
+        txtNumeroCelular.setBackground(new java.awt.Color(255, 255, 255));
+        txtNumeroCelular.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtNumeroCelular.setForeground(new java.awt.Color(0, 0, 0));
+        txtNumeroCelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumeroCelularActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtNumeroCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 330, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Imágenes\\Simple Lined White Login Page Wireframe Website UI Prototype.png")); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 580));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 620));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 420, 580));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 420, 620));
 
         jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Imágenes\\UI Login Page Desktop Prototype (1).png")); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 600, 700));
@@ -205,44 +232,72 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnRegistrarseActionPerformed
 
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
+                
+         String nombre = txtNombre.getText().trim();
+    String apellido = TxtApellido.getText().trim();
+    String numeroCelular = txtNumeroCelular.getText().trim();  
+    String cedula = txtCedula.getText().trim();
+    String contraseña = new String(txtContraseña.getPassword()).trim();
+    String repetirContraseña = TxtRepetirContraseña.getText().trim();
 
-        String nombre = txtNombre.getText().trim();
-        String apellido = TxtApellido.getText().trim();
-        String cedula = txtCedula.getText().trim();
-        String contraseña = new String(txtContraseña.getPassword()).trim();
-        String repetirContraseña = TxtRepetirContraseña.getText().trim();
-
-        if (nombre.isEmpty() || apellido.isEmpty() || cedula.isEmpty() || contraseña.isEmpty() || repetirContraseña.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (!contraseña.equals(repetirContraseña)) {
-            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
-            txtContraseña.setText("");
-            TxtRepetirContraseña.setText("");
-            txtContraseña.requestFocus();
-            return;
-        }
-
-        
-        JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente.");
-            
-         
-   
     
+    if (nombre.isEmpty() || apellido.isEmpty() || numeroCelular.isEmpty() || cedula.isEmpty() || contraseña.isEmpty() || repetirContraseña.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+   
+    if (!contraseña.equals(repetirContraseña)) {
+        JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
+        txtContraseña.setText("");
+        TxtRepetirContraseña.setText("");
+        txtContraseña.requestFocus();
+        return;
+    }
+
+   
+    if (contraseña.length() < 6) {
+        JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos 6 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    
+    User newUser = new User();
+    newUser.setNome(nombre);
+    newUser.setLastName(apellido);
+    newUser.setIdUser(cedula);
+    newUser.setPhone(numeroCelular); 
+    newUser.setPassword(contraseña);
+
+    
+    IInsert<User> insertUser = new InsertUser();
+    try {
+        insertUser.insert(newUser);
+        JOptionPane.showMessageDialog(this, "Cuenta creada exitosamente.");
+        limpiarCampos();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al crear la cuenta: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+      
+        limpiarCampos();
+    }
+    
+
     }//GEN-LAST:event_btnCrearCuentaActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        
     String nombre = txtNombre.getText().trim();  
 
-    
+  
     if (nombre.isEmpty()) {
-        
         JOptionPane.showMessageDialog(null, "El campo de nombre no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-       
         txtNombre.requestFocus();
+    } else if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+       
+        JOptionPane.showMessageDialog(null, "El nombre solo puede contener letras.", "Error", JOptionPane.ERROR_MESSAGE);
+        txtNombre.setText(""); 
+        txtNombre.requestFocus();
+    } else {
+        JOptionPane.showMessageDialog(null, "Nombre válido: " + nombre, "Información", JOptionPane.INFORMATION_MESSAGE);
     }
     }//GEN-LAST:event_txtNombreActionPerformed
 
@@ -288,16 +343,40 @@ public class Registro extends javax.swing.JFrame {
 
     private void TxtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtApellidoActionPerformed
     
-    String apellido = TxtApellido.getText().trim();  
+     String nombre = TxtApellido.getText().trim();  
 
-    
-    if (apellido.isEmpty()) {
-        
+  
+    if (nombre.isEmpty()) {
         JOptionPane.showMessageDialog(null, "El campo de apellido no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
-        
         TxtApellido.requestFocus();
+    } else if (!nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+")) {
+       
+        JOptionPane.showMessageDialog(null, "El apellido solo puede contener letras.", "Error", JOptionPane.ERROR_MESSAGE);
+        TxtApellido.setText(""); 
+        TxtApellido.requestFocus();
+    } else {
+        JOptionPane.showMessageDialog(null, "Apellido válido: " + nombre, "Información", JOptionPane.INFORMATION_MESSAGE);
     }
     }//GEN-LAST:event_TxtApellidoActionPerformed
+
+    private void txtNumeroCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroCelularActionPerformed
+      String numeroCelular = txtNumeroCelular.getText().trim();  
+    
+    if (numeroCelular.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El campo no puede estar vacío.", "Error", JOptionPane.ERROR_MESSAGE);
+        txtNumeroCelular.requestFocus(); 
+    } else if (numeroCelular.length() != 10 || !numeroCelular.matches("\\d+")) {
+        
+        JOptionPane.showMessageDialog(null, "Un número de celular debe tener exactamente 10 dígitos. Ejemplo: 3022240701", "Error", JOptionPane.ERROR_MESSAGE);
+        txtNumeroCelular.setText(""); 
+        txtNumeroCelular.requestFocus(); 
+         limpiarCampos();
+    }
+    }//GEN-LAST:event_txtNumeroCelularActionPerformed
+
+    private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCedulaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -354,5 +433,7 @@ public class Registro extends javax.swing.JFrame {
     private javax.swing.JTextField txtCedula;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNumeroCelular;
+    private javax.swing.JLabel wertyui;
     // End of variables declaration//GEN-END:variables
 }

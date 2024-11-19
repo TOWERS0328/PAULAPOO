@@ -1,6 +1,11 @@
 
 package Vistas;
 
+import database.CConexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 
@@ -11,14 +16,13 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+       
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
-        
+        CConexion.conecarDB();
         configurarNavegacionConEnter();
+        limpiarCampos();
     }
 
       private void limpiarCampos() {
@@ -156,7 +160,47 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnVentanaRegistrarActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-     
+      
+       String cedula = txtNumeroCelular.getText().trim();
+    String contraseña = new String(txtContraseña.getPassword()).trim();  // Corrected password retrieval
+
+    if (cedula.isEmpty() || contraseña.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    Connection conexion = CConexion.conecarDB();
+    PreparedStatement statement = null;
+    ResultSet resultSet = null;
+
+    try {
+        String query = "SELECT * FROM user_accounts WHERE idUser = ? AND password = ?";
+        statement = conexion.prepareStatement(query);
+        statement.setString(1, cedula);
+        statement.setString(2, contraseña);
+
+        resultSet = statement.executeQuery();
+
+        if (resultSet.next()) {
+            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso. Bienvenido, " + resultSet.getString("nome"));
+            Administrador ventanaAdmin = new Administrador(); 
+            ventanaAdmin.setVisible(true);
+            this.dispose(); // Close the login window
+        } else {
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas. Intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al conectar con la base de datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    } finally {
+        try {
+            if (resultSet != null) resultSet.close();
+            if (statement != null) statement.close();
+            if (conexion != null) conexion.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error al cerrar la conexión: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void txtContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseñaActionPerformed

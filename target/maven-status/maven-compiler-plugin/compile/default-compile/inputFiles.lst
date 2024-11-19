@@ -1,6 +1,7 @@
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Interfaces\query\ISelectById.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Logic\query\SelectUserById.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Logic\command\DeleteUser.java
+C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Logic\command\UpdatePaquete.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Interfaces\query\ISelectAll.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Vistas\Administrador.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Model\User.java
@@ -12,8 +13,10 @@ C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Vistas\Repartidor.jav
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Vistas\Registro.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\database\CConexion.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Interfaces\command\IUpdate.java
+C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Logic\command\InsertPaquete.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Logic\query\SelectAllUsers.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Vistas\RegistroDePaquete.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Interfaces\command\IInsert.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Logic\command\UpdateUser.java
+C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Logic\command\DeletePaquete.java
 C:\Users\juand\OneDrive\Desktop\SafeTracking\src\main\java\Model\Paquete.java
