@@ -161,10 +161,10 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
       
-       String cedula = txtNumeroCelular.getText().trim();
-    String contraseña = new String(txtContraseña.getPassword()).trim();  // Corrected password retrieval
+       String celular = txtNumeroCelular.getText().trim();
+    String contraseña = new String(txtContraseña.getPassword()).trim(); 
 
-    if (cedula.isEmpty() || contraseña.isEmpty()) {
+    if (celular.isEmpty() || contraseña.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
@@ -174,18 +174,40 @@ public class Login extends javax.swing.JFrame {
     ResultSet resultSet = null;
 
     try {
-        String query = "SELECT * FROM user_accounts WHERE idUser = ? AND password = ?";
+        
+        String query = "SELECT * FROM users WHERE phone = ? AND password = ?";
         statement = conexion.prepareStatement(query);
-        statement.setString(1, cedula);
+        statement.setString(1, celular);
         statement.setString(2, contraseña);
 
         resultSet = statement.executeQuery();
 
         if (resultSet.next()) {
-            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso. Bienvenido, " + resultSet.getString("nome"));
-            Administrador ventanaAdmin = new Administrador(); 
-            ventanaAdmin.setVisible(true);
-            this.dispose(); // Close the login window
+            String rol = resultSet.getString("role"); 
+
+            
+            switch (rol.toLowerCase()) {
+                case "usuario":
+                    RegistroDePaquete ventanaCliente = new RegistroDePaquete();
+                    ventanaCliente.setVisible(true);
+                    break;
+
+                case "administrador":
+                    GestiónUsuarios ventanaAdmin = new GestiónUsuarios();
+                    ventanaAdmin.setVisible(true);
+                    break;
+                    
+                     case "repartidor":
+                    Repartidor ventanaRepartidor = new Repartidor();
+                    ventanaRepartidor.setVisible(true);
+                    break;
+
+                default:
+                    JOptionPane.showMessageDialog(this, "Rol desconocido: " + rol, "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+            }
+
+            this.dispose(); 
         } else {
             JOptionPane.showMessageDialog(this, "Credenciales incorrectas. Intente nuevamente.", "Error", JOptionPane.ERROR_MESSAGE);
         }

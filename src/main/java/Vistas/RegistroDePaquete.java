@@ -26,6 +26,7 @@ public class RegistroDePaquete extends javax.swing.JFrame {
      */
     public RegistroDePaquete() {
         initComponents();
+        setLocationRelativeTo (null);
         configurarNavegacionConEnter();
         generarNumeroSeguimiento();
         registrarPaquete();
@@ -135,29 +136,29 @@ private void registrarPaquete() {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Fecha de Ingreso");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 70, -1, -1));
 
         JCalender.setBackground(new java.awt.Color(255, 255, 255));
         JCalender.setForeground(new java.awt.Color(204, 204, 204));
-        jPanel1.add(JCalender, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 180, 30));
+        jPanel1.add(JCalender, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, 180, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Ubicación Actual");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         TxtUbicacionActual.setBackground(new java.awt.Color(255, 255, 255));
         TxtUbicacionActual.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jPanel1.add(TxtUbicacionActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 170, 130, 30));
+        jPanel1.add(TxtUbicacionActual, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 130, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Destino");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, -1, -1));
 
         TxtDestino.setBackground(new java.awt.Color(255, 255, 255));
         TxtDestino.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jPanel1.add(TxtDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 170, 130, 30));
+        jPanel1.add(TxtDestino, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 130, 30));
 
         BtnRegistrar.setBackground(new java.awt.Color(255, 102, 0));
         BtnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -202,20 +203,20 @@ private void registrarPaquete() {
         TxCedulaRepartidor.setBackground(new java.awt.Color(255, 255, 255));
         TxCedulaRepartidor.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         TxCedulaRepartidor.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(TxCedulaRepartidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 170, 130, 30));
+        jPanel1.add(TxCedulaRepartidor, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 170, 130, 30));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Cedula del Repartidor");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Imágenes\\Simple Lined White Login Page Wireframe Website UI Prototype.png")); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 790, 380));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 330));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 790, 380));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 760, 330));
 
         jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Imágenes\\UI Login Page Desktop Prototype (1).png")); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 870, 580));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 970, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

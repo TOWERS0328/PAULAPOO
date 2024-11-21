@@ -27,7 +27,7 @@ public class CConexion {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             cx = DriverManager.getConnection(cadena, user, password);
-            JOptionPane.showConfirmDialog(null, "GOODDDDD");
+            JOptionPane.showConfirmDialog(null, "GOOOOD");
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, "No se logro conectar con la base de datos, error: " + e.toString());
         }

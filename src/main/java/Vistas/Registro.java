@@ -375,7 +375,7 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNumeroCelularActionPerformed
 
     private void txtCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCedulaActionPerformed
-        // TODO add your handling code here:
+        // HACER UNA VALIDACIÓN, PARA QUE VERIFIQUE SI LA CEDULA INGRESADA YA EXIXTE 
     }//GEN-LAST:event_txtCedulaActionPerformed
 
     /**
