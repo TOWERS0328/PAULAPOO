@@ -8,13 +8,19 @@ import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
- * @author juand
+ * Clase para gestionar la lógica de los usuarios.
+ * Contiene un método para mostrar los usuarios desde la base de datos.
  */
 public class LogicaUsuarios {
 
-    public static final String INSERT = "INSERT INTO users (nome, idUser, phone, password, lastname, role) VALUES(?,?,?,?,?,?)";
+    // Consulta SQL para insertar un nuevo usuario (según lo que parece ser una constante de inserción)
+    public static final String INSERT = "INSERT INTO users ( nome, idUser, phone, role? ,password, lastname, role) VALUES(?,?,?,?,?,?)";
 
+    /**
+     * Método para mostrar todos los usuarios en una tabla.
+     * 
+     * @return DefaultTableModel con los datos de los usuarios.
+     */
     public DefaultTableModel mostrarUsuarios() {
         String[] nombresColumnas = {
             "Id", "Cedula", "Nombre", 
@@ -25,18 +31,14 @@ public class LogicaUsuarios {
 
         DefaultTableModel modelo = new DefaultTableModel(null, nombresColumnas);
 
-        // Consulta SQL para obtener los 7 campos
+        // Consulta SQL para obtener los datos de los usuarios
         String sql = "SELECT id, idUser, nome, lastname, " +
                      "phone, password, role FROM users";
 
-        Connection cn = null;
-        PreparedStatement pst = null;
-        ResultSet rs = null;
-
-        try {
-            cn = CConexion.conecarDB(); // Conexión a la base de datos
-            pst = cn.prepareStatement(sql);
-            rs = pst.executeQuery();
+        // Usamos try-with-resources para asegurarnos de cerrar los recursos automáticamente
+        try (Connection cn = CConexion.conecarDB();
+             PreparedStatement pst = cn.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery()) {
 
             while (rs.next()) {
                 registros[0] = rs.getString("id");
@@ -51,14 +53,6 @@ public class LogicaUsuarios {
             }
         } catch (SQLException e) {
             System.err.println("Error al mostrar los usuarios: " + e.getMessage());
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pst != null) pst.close();
-                if (cn != null) cn.close();
-            } catch (SQLException ex) {
-                System.err.println("Error al cerrar la conexión: " + ex.getMessage());
-            }
         }
 
         return modelo;

@@ -271,6 +271,11 @@ public class GestionPaquete extends javax.swing.JFrame {
         TxtId.setBackground(new java.awt.Color(255, 255, 255));
         TxtId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         TxtId.setForeground(new java.awt.Color(0, 0, 0));
+        TxtId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtIdActionPerformed(evt);
+            }
+        });
         jPanel1.add(TxtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 160, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Desktop\\SafeTracking\\src\\main\\java\\Resources\\Imagenes\\Simple Lined White Login Page Wireframe Website UI Prototype.png")); // NOI18N
@@ -543,6 +548,10 @@ private void actualizarFilaTabla(int fila, String numeroSeguimiento, String cate
     ventanaGestiónUsuarios.setVisible(true);
     this.dispose(); 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void TxtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtIdActionPerformed
 
     /**
      * @param args the command line arguments

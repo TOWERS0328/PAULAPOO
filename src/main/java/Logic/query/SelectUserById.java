@@ -26,7 +26,7 @@ public class SelectUserById implements ISelectById<User> {
                 String idUser = rs.getString("idUser");
                 int id = rs.getInt("id");
                 String lastName = rs.getString("lastName");
-                userReturn = new User(username, idUser, id, phone, role, lastName);
+                userReturn = new User(username, idUser, phone, role, lastName, role, role);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e);

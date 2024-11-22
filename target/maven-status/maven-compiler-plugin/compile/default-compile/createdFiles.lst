@@ -38,6 +38,7 @@ Vistas\Login.class
 Vistas\RegistroDePaquete.class
 Model\LogicaPaquetes.class
 Interfaces\query\ISelectAll.class
+Vistas\GestionPaquete$10.class
 Vistas\Login$5.class
 Vistas\Registro$3.class
 Logic\command\UpdateUser.class

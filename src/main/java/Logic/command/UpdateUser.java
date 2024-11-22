@@ -11,12 +11,13 @@ import java.sql.SQLException;
 
 public class UpdateUser implements IUpdate<User> {
 
-    // Constante para la consulta SQL de actualización de usuario
-    private static final String UPDATE_USER = "UPDATE users SET name=?, lastname=?, password=?, phone=?, idUser=? WHERE id=?";
+    // Consulta SQL para actualizar un usuario
+    private static final String UPDATE_USER = 
+        "UPDATE users SET nome = ?, lastname = ?, password = ?, phone = ?, idUser = ?, role = ? WHERE id = ?";
 
     @Override
     public void update(User user) throws SQLException {
-        // Establecer la conexión y ejecutar la actualización en la base de datos
+       
         try (Connection cx = CConexion.conecarDB(); 
              PreparedStatement ps = cx.prepareStatement(UPDATE_USER)) {
 
@@ -26,21 +27,25 @@ public class UpdateUser implements IUpdate<User> {
             ps.setString(3, user.getPassword());
             ps.setString(4, user.getPhone());
             ps.setString(5, user.getIdUser());
-            ps.setInt(6, user.getId());
+            ps.setString(6, user.getRoll()); 
+            ps.setInt(7, user.getId());
 
             // Ejecutar la actualización
             int rowsUpdated = ps.executeUpdate();
 
-            // Verificar si la actualización fue exitosa
+            // Informar si se actualizó con éxito
             if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(null, "Usuario actualizado con éxito.");
+                JOptionPane.showMessageDialog(null, 
+                    "El usuario con ID " + user.getId() + " fue actualizado exitosamente.");
             } else {
-                JOptionPane.showMessageDialog(null, "No se encontró el usuario para actualizar.");
+                JOptionPane.showMessageDialog(null, 
+                    "No se encontró un usuario con ID " + user.getId() + " para actualizar.");
             }
 
         } catch (SQLException e) {
-            // Manejar cualquier error en la actualización
-            JOptionPane.showMessageDialog(null, "Error al actualizar el usuario: " + e.getMessage());
+          
+            JOptionPane.showMessageDialog(null, 
+                "Error al actualizar el usuario con ID " + user.getId() + ": " + e.getMessage());
         }
     }
 }

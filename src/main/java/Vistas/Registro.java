@@ -233,20 +233,19 @@ public class Registro extends javax.swing.JFrame {
 
     private void btnCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearCuentaActionPerformed
                 
-         String nombre = txtNombre.getText().trim();
+  String nombre = txtNombre.getText().trim();
     String apellido = TxtApellido.getText().trim();
     String numeroCelular = txtNumeroCelular.getText().trim();  
     String cedula = txtCedula.getText().trim();
     String contraseña = new String(txtContraseña.getPassword()).trim();
     String repetirContraseña = TxtRepetirContraseña.getText().trim();
 
-    
+    // Validaciones básicas
     if (nombre.isEmpty() || apellido.isEmpty() || numeroCelular.isEmpty() || cedula.isEmpty() || contraseña.isEmpty() || repetirContraseña.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-   
     if (!contraseña.equals(repetirContraseña)) {
         JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden.", "Error", JOptionPane.ERROR_MESSAGE);
         txtContraseña.setText("");
@@ -255,21 +254,21 @@ public class Registro extends javax.swing.JFrame {
         return;
     }
 
-   
     if (contraseña.length() < 6) {
         JOptionPane.showMessageDialog(this, "La contraseña debe tener al menos 6 caracteres.", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    
+    // Crear el objeto User con rol por defecto
     User newUser = new User();
     newUser.setNome(nombre);
     newUser.setLastName(apellido);
     newUser.setIdUser(cedula);
     newUser.setPhone(numeroCelular); 
     newUser.setPassword(contraseña);
+    newUser.setRoll("Usuario"); // Asignar rol predeterminado
 
-    
+    // Insertar en la base de datos
     IInsert<User> insertUser = new InsertUser();
     try {
         insertUser.insert(newUser);
@@ -277,7 +276,6 @@ public class Registro extends javax.swing.JFrame {
         limpiarCampos();
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(this, "Error al crear la cuenta: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-      
         limpiarCampos();
     }
     

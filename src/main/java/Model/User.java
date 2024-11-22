@@ -9,7 +9,7 @@ public class User {
     private String roll;
     private String lastName;
 
-    public User(String nome, String idUser, int id, String phone,  String roll, String lastName) {
+    public User(String nome, String idUser, String phone, String roll, String lastName, String role, String role1) {
         this.nome = nome;
         this.idUser = idUser;
         this.id = id;
@@ -18,6 +18,16 @@ public class User {
         this.lastName = lastName;
     }
 
+    public User(String nome, String idUser, int id, String phone, String password, String roll, String lastName) {
+        this.nome = nome;
+        this.idUser = idUser;
+        this.id = id;
+        this.phone = phone;
+        this.password = password;
+        this.roll = roll;
+        this.lastName = lastName;
+    }
+    
     public User(String nome, String idUser, String phone, String password, String lastName) {
         this.nome = nome;
         this.idUser = idUser;

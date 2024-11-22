@@ -28,7 +28,7 @@ public class SelectAllUsers implements ISelectAll<User> {
                String idUser = rs.getString("idUser");
                int id = rs.getInt("id");
                String lastName = rs.getString("lastName");
-               User user = new User(username, idUser, id, phone, role, lastName);
+               User user = new User(username, idUser, phone, role, lastName, role, role);
                users.add(user);
             }
         }catch (SQLException e){

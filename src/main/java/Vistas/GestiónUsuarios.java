@@ -49,17 +49,35 @@ public class GestiónUsuarios extends javax.swing.JFrame {
     TxtNumerCelular.setText("");
     txtPassword.setText("");
     
-    // Resetear el ComboBox a su primer ítem
+    
     ComboRoles.setSelectedIndex(0);
     
-    // Opcional: Dar foco al primer campo
+   
     txtIdUsuario.requestFocus();
 }
-          private void cargarUsuarios() {
-       
-        DefaultTableModel modelo = logica.mostrarUsuarios();
-        users.setModel(modelo); 
+        private void cargarUsuarios() {
+    // Asume que tienes un objeto de tipo `LogicaUsuarios` que carga los usuarios
+    LogicaUsuarios logicaUsuarios = new LogicaUsuarios();
+    DefaultTableModel modelo = logicaUsuarios.mostrarUsuarios();
+    users.setModel(modelo);  // Establecer el nuevo modelo en la JTable
+}
+            // Método para validar campos
+private boolean validarCampos() {
+    String idUsuario = txtIdUsuario.getText();
+    String nombre = TxtNombre.getText();
+    String apellido = TxtApellido.getText(); 
+    String numeroCelular = TxtNumerCelular.getText();
+    String rol = ComboRoles.getSelectedItem().toString();
+    String password = new String(txtPassword.getPassword());
+
+    if (idUsuario.isEmpty() || nombre.isEmpty() || apellido.isEmpty() || 
+        numeroCelular.isEmpty() || rol.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios para actualizar.");
+        return false;
     }
+    return true;
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -107,7 +125,7 @@ public class GestiónUsuarios extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Gestión Administrativa de Usuarios");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 36));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 16, -1, 40));
 
         BtnActualizar.setBackground(new java.awt.Color(255, 102, 0));
         BtnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -145,7 +163,7 @@ public class GestiónUsuarios extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Nombre");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 69, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 69, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -160,7 +178,7 @@ public class GestiónUsuarios extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Cédula");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 61, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 61, -1));
 
         ComboRoles.setBackground(new java.awt.Color(255, 255, 255));
         ComboRoles.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -176,7 +194,7 @@ public class GestiónUsuarios extends javax.swing.JFrame {
                 TxtNombreActionPerformed(evt);
             }
         });
-        jPanel2.add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 260, 31));
+        jPanel2.add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 260, 31));
 
         TxtApellido.setBackground(new java.awt.Color(255, 255, 255));
         TxtApellido.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -216,7 +234,7 @@ public class GestiónUsuarios extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Contraseña");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, -1, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, -1, -1));
 
         txtPassword.setBackground(new java.awt.Color(255, 255, 255));
         txtPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -260,12 +278,12 @@ public class GestiónUsuarios extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Id");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 20, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
         TxtId.setBackground(new java.awt.Color(255, 255, 255));
         TxtId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         TxtId.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(TxtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 250, 30));
+        jPanel2.add(TxtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 230, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Desktop\\SafeTracking\\src\\main\\java\\Resources\\Imagenes\\Simple Lined White Login Page Wireframe Website UI Prototype.png")); // NOI18N
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 570));
@@ -303,7 +321,54 @@ public class GestiónUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
+      try {
        
+        if (!validarCampos()) {
+            return;
+        }
+        
+        int id = Integer.parseInt( TxtId.getText());
+        String idUser = txtIdUsuario.getText();
+        String nome = TxtNombre.getText();
+        String lastname = TxtApellido.getText(); 
+        String phone = TxtNumerCelular.getText();  
+        String role = (String) ComboRoles.getSelectedItem();  
+        String password = new String(txtPassword.getPassword());
+
+      
+
+        
+        User usuarioActualizado = new User(nome, idUser, id , phone, password, role, lastname);
+        
+      
+        UpdateUser updater = new UpdateUser();
+        updater.update(usuarioActualizado);
+        
+       
+        cargarUsuarios();
+        
+       
+        int filaSeleccionada = users.getSelectedRow();
+        
+       
+        if (filaSeleccionada != -1) {
+           
+            actualizarFilaTabla(filaSeleccionada, idUser, nome, lastname, phone, role, password);
+        }
+        
+      
+        JOptionPane.showMessageDialog(this, "Usuario actualizado correctamente.");
+        
+        
+        limpiarCampos();
+        modoEdicion = false;
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar el usuario: " + e.getMessage());
+    } catch (HeadlessException e) {
+        JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + e.getMessage());
+    }
+
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBorrarActionPerformed
@@ -429,6 +494,7 @@ public class GestiónUsuarios extends javax.swing.JFrame {
 
     int fila = users.getSelectedRow();
     if (fila != -1) {
+        TxtId.setText(users.getValueAt(fila, 0).toString());
         txtIdUsuario.setText(users.getValueAt(fila, 1).toString()); // Cedula
         TxtNombre.setText(users.getValueAt(fila, 2).toString());    // Nombre
         TxtApellido.setText(users.getValueAt(fila, 3).toString());  // Apellido
@@ -523,5 +589,29 @@ public class GestiónUsuarios extends javax.swing.JFrame {
     private javax.swing.JTable users;
     // End of variables declaration//GEN-END:variables
 
+   private void actualizarFilaTabla(int fila, String idUsuario, String nombre, String apellido,
+                                  String numeroCelular, String rol, String password) {
+    // Verificar si el modelo de la tabla es un DefaultTableModel
+    DefaultTableModel model = (DefaultTableModel) users.getModel();
+
+    // Actualizar los valores de la fila en el modelo
+    model.setValueAt(idUsuario, fila, 1);  // Asumí que la cédula (idUsuario) está en la columna 1
+    model.setValueAt(nombre, fila, 2);     // Nombre en columna 2
+    model.setValueAt(apellido, fila, 3);   // Apellido en columna 3
+    model.setValueAt(numeroCelular, fila, 4);  // Número celular en columna 4
+    model.setValueAt(rol, fila, 5);        // Rol en columna 5
+    model.setValueAt(password, fila, 6);    // Contraseña en columna 6
+
+    // Si el modelo es de tipo DefaultTableModel, puedes usar este método para actualizar visualmente
+    model.fireTableCellUpdated(fila, 1);  // Esto asegura que la celda actualizada se repinte correctamente
+    model.fireTableCellUpdated(fila, 2);
+    model.fireTableCellUpdated(fila, 3);
+    model.fireTableCellUpdated(fila, 4);
+    model.fireTableCellUpdated(fila, 5);
+    model.fireTableCellUpdated(fila, 6);
+}
+
+
+   
     
 }
