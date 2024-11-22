@@ -1,3 +1,4 @@
+Model\LogicaUsuarios.class
 Vistas\Login$3.class
 Vistas\Registro$1.class
 Vistas\RegistroDePaquete$1.class
@@ -5,6 +6,7 @@ Vistas\Repartidor$1.class
 Vistas\Repartidor.class
 Vistas\Login$6.class
 Vistas\GestionPaquete$5.class
+Vistas\GestiónUsuarios$11.class
 Vistas\GestionPaquete$2.class
 Vistas\GestiónUsuarios$3.class
 Interfaces\command\IUpdate.class
@@ -15,6 +17,7 @@ Vistas\GestiónUsuarios$6.class
 Vistas\GestiónUsuarios$7.class
 Vistas\Login$2.class
 Vistas\GestionPaquete$4.class
+Vistas\GestiónUsuarios$12.class
 Vistas\GestionPaquete$1.class
 Vistas\Registro$7.class
 Vistas\RegistroDePaquete$4.class
@@ -23,6 +26,7 @@ Vistas\GestiónUsuarios$4.class
 Vistas\Registro$4.class
 Vistas\Registro$10.class
 Interfaces\command\IDelete.class
+Vistas\GestionPaquete$8.class
 database\CConexion.class
 Vistas\Registro$6.class
 Vistas\GestiónUsuarios$1.class
@@ -47,14 +51,16 @@ Vistas\GestionPaquete$6.class
 Vistas\GestiónUsuarios$5.class
 Logic\command\InsertUser.class
 Vistas\Registro$2.class
+Vistas\GestionPaquete$9.class
+Vistas\GestiónUsuarios$9.class
 Logic\command\InsertPaquete.class
-Vistas\RegistroDePaquete$5.class
 Model\User.class
 Vistas\Registro.class
 Interfaces\query\ISelectById.class
 Logic\command\UpdatePaquete.class
 Vistas\Login$4.class
 Vistas\GestionPaquete$3.class
+Vistas\GestiónUsuarios$10.class
 Vistas\GestiónUsuarios$2.class
 Vistas\Registro$9.class
 Vistas\RegistroDePaquete$2.class

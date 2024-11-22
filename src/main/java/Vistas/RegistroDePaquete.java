@@ -66,7 +66,7 @@ public class RegistroDePaquete extends javax.swing.JFrame {
     
 private void registrarPaquete() {
      String categorias = ComboCategorias.getSelectedItem() != null ? ComboCategorias.getSelectedItem().toString() : "";
-    Date fechaIngreso = JCalender.getDate(); // Obtener la fecha seleccionada
+    Date fechaIngreso = JCalender.getDate(); 
     String ubicacionActual = TxtUbicacionActual.getText();
     String destino = TxtDestino.getText();
 
@@ -75,9 +75,9 @@ private void registrarPaquete() {
         return;
     }
 
-    // Generar el número de seguimiento
+    
     String numeroSeguimiento = generarNumeroSeguimiento();
-    TxtNumeroSeguimiento.setText(numeroSeguimiento); // Asignar el número de seguimiento al campo
+    TxtNumeroSeguimiento.setText(numeroSeguimiento); 
 
     
 }
@@ -101,12 +101,11 @@ private void registrarPaquete() {
         jLabel6 = new javax.swing.JLabel();
         TxtDestino = new javax.swing.JTextField();
         BtnRegistrar = new javax.swing.JButton();
-        btnBorrar = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         ComboCategorias = new javax.swing.JComboBox<>();
         TxCedulaRepartidor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        BtnInicio = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -171,28 +170,6 @@ private void registrarPaquete() {
         });
         jPanel1.add(BtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, -1, 30));
 
-        btnBorrar.setBackground(new java.awt.Color(255, 255, 255));
-        btnBorrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnBorrar.setForeground(new java.awt.Color(0, 0, 0));
-        btnBorrar.setText("Borrar");
-        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 220, -1, 30));
-
-        btnActualizar.setBackground(new java.awt.Color(255, 102, 0));
-        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizar.setText("Editar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, 30));
-
         ComboCategorias.setBackground(new java.awt.Color(255, 255, 255));
         ComboCategorias.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         ComboCategorias.setForeground(new java.awt.Color(0, 0, 0));
@@ -215,8 +192,19 @@ private void registrarPaquete() {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 760, 330));
 
+        BtnInicio.setBackground(new java.awt.Color(255, 255, 255));
+        BtnInicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnInicio.setForeground(new java.awt.Color(0, 0, 0));
+        BtnInicio.setText("Inicio ");
+        BtnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnInicioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, -1, -1));
+
         jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Imágenes\\UI Login Page Desktop Prototype (1).png")); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 970, 460));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 970, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -224,36 +212,6 @@ private void registrarPaquete() {
     private void TxtNumeroSeguimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNumeroSeguimientoActionPerformed
       
     }//GEN-LAST:event_TxtNumeroSeguimientoActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-    
-     
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
-    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-       
-    String numeroSeguimiento = TxtNumeroSeguimiento.getText();  
-
-    if (numeroSeguimiento.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Por favor ingresa el número de seguimiento.");
-        return;
-    }
-
-    
-    Paquete paquete = new Paquete();
-    paquete.setNumeroSeguimiento(numeroSeguimiento);
-
-    
-    DeletePaquete deletePaquete = new DeletePaquete();
-
-    try {
-        
-        deletePaquete.delete(paquete);
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al intentar eliminar el paquete: " + e.getMessage());
-    }
-
-    }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
     
@@ -293,6 +251,13 @@ private void registrarPaquete() {
 
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
+    private void BtnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInicioActionPerformed
+          
+    Login ventanaLogin = new Login();
+    ventanaLogin.setVisible(true);
+    this.dispose(); 
+    }//GEN-LAST:event_BtnInicioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -329,6 +294,7 @@ private void registrarPaquete() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnInicio;
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JComboBox<String> ComboCategorias;
     private com.toedter.calendar.JDateChooser JCalender;
@@ -336,8 +302,6 @@ private void registrarPaquete() {
     private javax.swing.JTextField TxtDestino;
     private javax.swing.JTextField TxtNumeroSeguimiento;
     private javax.swing.JTextField TxtUbicacionActual;
-    private javax.swing.JButton btnActualizar;
-    private javax.swing.JButton btnBorrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

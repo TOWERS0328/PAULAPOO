@@ -1,7 +1,10 @@
 
 package Vistas;
 
+import Interfaces.command.IInsert;
 import Logic.command.DeleteUser;
+import Logic.command.InsertUser;
+import Logic.command.UpdatePaquete;
 import Logic.command.UpdateUser;
 import Model.User;
 import database.CConexion;
@@ -10,20 +13,52 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import Model.LogicaUsuarios;
+import Model.Paquete;
+import java.awt.HeadlessException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author juand
  */
 public class GestiónUsuarios extends javax.swing.JFrame {
-
+    private LogicaUsuarios logica = new LogicaUsuarios(); 
+     private boolean modoEdicion = false; 
     /**
      * Creates new form Administrador
      */
     public GestiónUsuarios() {
         initComponents();
         setLocationRelativeTo (null);
+        cargarusuarios();
        
+    }
+         private void cargarusuarios() {
+       
+        DefaultTableModel modelo = logica.mostrarUsuarios();
+        users.setModel(modelo); 
+    }
+         public void limpiarCampos() {
+    // Limpiar campos de texto
+    txtIdUsuario.setText("");
+    TxtNombre.setText("");
+    TxtApellido.setText("");
+    TxtNumerCelular.setText("");
+    txtPassword.setText("");
+    
+    // Resetear el ComboBox a su primer ítem
+    ComboRoles.setSelectedIndex(0);
+    
+    // Opcional: Dar foco al primer campo
+    txtIdUsuario.requestFocus();
+}
+          private void cargarUsuarios() {
+       
+        DefaultTableModel modelo = logica.mostrarUsuarios();
+        users.setModel(modelo); 
     }
 
     /**
@@ -55,7 +90,11 @@ public class GestiónUsuarios extends javax.swing.JFrame {
         txtPassword = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         users = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        TxtId = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        BtnInicio = new javax.swing.JButton();
+        BtnSiguiente = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -106,33 +145,38 @@ public class GestiónUsuarios extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Nombre");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 69, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 80, 69, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Apellido");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 77, -1));
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 77, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Número Celular");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, -1, -1));
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Cédula");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 61, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 61, -1));
 
         ComboRoles.setBackground(new java.awt.Color(255, 255, 255));
         ComboRoles.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ComboRoles.setForeground(new java.awt.Color(0, 0, 0));
-        ComboRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un rol", "Cliente", "Repartidor" }));
-        jPanel2.add(ComboRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 580, 50));
+        ComboRoles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un rol", "Repartidor" }));
+        jPanel2.add(ComboRoles, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 580, 50));
 
         TxtNombre.setBackground(new java.awt.Color(255, 255, 255));
         TxtNombre.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         TxtNombre.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 260, 31));
+        TxtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtNombreActionPerformed(evt);
+            }
+        });
+        jPanel2.add(TxtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 260, 31));
 
         TxtApellido.setBackground(new java.awt.Color(255, 255, 255));
         TxtApellido.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -142,7 +186,7 @@ public class GestiónUsuarios extends javax.swing.JFrame {
                 TxtApellidoActionPerformed(evt);
             }
         });
-        jPanel2.add(TxtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 100, 260, 31));
+        jPanel2.add(TxtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 260, 31));
 
         TxtNumerCelular.setBackground(new java.awt.Color(255, 255, 255));
         TxtNumerCelular.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -152,7 +196,7 @@ public class GestiónUsuarios extends javax.swing.JFrame {
                 TxtNumerCelularActionPerformed(evt);
             }
         });
-        jPanel2.add(TxtNumerCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 170, 260, 30));
+        jPanel2.add(TxtNumerCelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 260, 30));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
@@ -167,197 +211,205 @@ public class GestiónUsuarios extends javax.swing.JFrame {
                 txtIdUsuarioActionPerformed(evt);
             }
         });
-        jPanel2.add(txtIdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 260, 30));
+        jPanel2.add(txtIdUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 260, 30));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Contraseña");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, -1, -1));
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, -1, -1));
 
         txtPassword.setBackground(new java.awt.Color(255, 255, 255));
         txtPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 260, 30));
+        jPanel2.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 170, 260, 30));
 
         users.setBackground(new java.awt.Color(255, 255, 255));
         users.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         users.setForeground(new java.awt.Color(0, 0, 0));
         users.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Cedula", "Nombre", "Apellido", "Telefono", "Roles"
+                "Id", "Cedula", "Nombre", "Apellido", "Telefono", "Contraseña", "Roles"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
+        users.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usersMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(users);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 920, 190));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 890, 190));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Id");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 20, -1));
+
+        TxtId.setBackground(new java.awt.Color(255, 255, 255));
+        TxtId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TxtId.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(TxtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 250, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Desktop\\SafeTracking\\src\\main\\java\\Resources\\Imagenes\\Simple Lined White Login Page Wireframe Website UI Prototype.png")); // NOI18N
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 920, 570));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 920, 570));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Desktop\\SafeTracking\\src\\main\\java\\Resources\\Imagenes\\UI Login Page Desktop Prototype (1).png")); // NOI18N
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 1010, 650));
+        BtnInicio.setBackground(new java.awt.Color(255, 255, 255));
+        BtnInicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnInicio.setForeground(new java.awt.Color(0, 0, 0));
+        BtnInicio.setText("Inicio");
+        BtnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnInicioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 610, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 990, 650));
+        BtnSiguiente.setBackground(new java.awt.Color(255, 255, 255));
+        BtnSiguiente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnSiguiente.setForeground(new java.awt.Color(0, 0, 0));
+        BtnSiguiente.setText("Siguiente");
+        BtnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSiguienteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BtnSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 610, -1, -1));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Desktop\\SafeTracking\\src\\main\\java\\Resources\\Imagenes\\UI Login Page Desktop Prototype (1).png")); // NOI18N
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 1110, 650));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 650));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarActionPerformed
-         try {
-        
-        int id = Integer.parseInt(txtIdUsuario.getText());
-
-        
-        if (txtIdUsuario.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingresa el ID del usuario.");
-            return;
-        }
-
        
-        User user = getUserById(id);
-
-       
-        if (user != null) {
-            TxtNombre.setText(user.getNome());
-            TxtApellido.setText(user.getLastName());
-            TxtNumerCelular.setText(user.getPhone());
-            txtPassword.setText(user.getPassword());
-            txtIdUsuario.setText(user.getIdUser());
-        } else {
-            JOptionPane.showMessageDialog(this, "No se encontró el usuario con el ID proporcionado.");
-            return;
-        }
-
-        String nombre=TxtNombre.getName();
-        String apellido = TxtApellido.getText();
-        String password = new String(txtPassword.getPassword());
-        String telefono = TxtNumerCelular.getText();
-        String idUsuario = txtIdUsuario.getText();
-
-        // Validar que los campos no estén vacíos
-        if (nombre.isEmpty() || apellido.isEmpty() || password.isEmpty() || telefono.isEmpty() || idUsuario.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, llena todos los campos.");
-            return;
-        }
-
-        
-        user.setNome(nombre);
-        user.setLastName(apellido);
-        user.setPassword(password);
-        user.setPhone(telefono);
-        user.setIdUser(idUsuario);
-
-        
-        UpdateUser updateUser = new UpdateUser();
-        updateUser.update(user);
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.");
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Error al actualizar el usuario: " + e.getMessage());
-    }
-}
-
-// Método para obtener los datos del usuario a partir del ID
-private User getUserById(int id) {
-    // Aquí deberías implementar la lógica para obtener el usuario desde la base de datos.
-    // Puedes hacer una consulta SQL para buscar al usuario con el ID proporcionado.
-    // Por ejemplo:
-
-    // Supongamos que tienes una clase `UserDAO` para manejar la base de datos:
-    User user = null;
-    try {
-        Connection cx = CConexion.conecarDB();
-        String query = "SELECT * FROM users WHERE id = ?";
-        PreparedStatement ps = cx.prepareStatement(query);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-        
-        if (rs.next()) {
-            user = new User();
-            user.setId(rs.getInt("id"));
-            user.setNome(rs.getString("name"));
-            user.setLastName(rs.getString("lastname"));
-            user.setPassword(rs.getString("password"));
-            user.setPhone(rs.getString("phone"));
-            user.setIdUser(rs.getString("idUser"));
-        }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Error al obtener el usuario: " + e.getMessage());
-    }
-    return user;
     }//GEN-LAST:event_BtnActualizarActionPerformed
 
     private void BtnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBorrarActionPerformed
-        try {
-        String idUsuario = txtIdUsuario.getText().trim();  
-        if (idUsuario.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese el ID (Cédula) del usuario a eliminar.");
-            return;
-        }
+            String cedula = txtIdUsuario.getText();
 
-        int confirm = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar este usuario?", 
-                                                     "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-        if (confirm == JOptionPane.YES_OPTION) {
-            deleteUserById(idUsuario);
-        }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar el usuario: " + ex.getMessage());
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(null, "Se produjo un error inesperado: " + ex.getMessage());
+    if (cedula.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Por favor ingresa el número de cédula.");
+        return;
     }
-}
-private void deleteUserById(String idUsuario) throws SQLException {
 
-    Connection cx = CConexion.conecarDB();
+    User user = new User();
+    user.setIdUser(cedula); // Asigna la cédula al ID del usuario.
 
-    String deleteQuery = "DELETE FROM users WHERE idUser = ?";
+    DeleteUser deleteUser = new DeleteUser();
 
-    try (PreparedStatement ps = cx.prepareStatement(deleteQuery)) {
-        ps.setString(1, idUsuario);  
-
-        int rowsAffected = ps.executeUpdate();
-        if (rowsAffected > 0) {
-            JOptionPane.showMessageDialog(null, "Usuario eliminado con éxito.");
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró un usuario con ese ID.");
-        }
+    try {
+        deleteUser.delete(user); // Usa la instancia correcta para eliminar.
+        JOptionPane.showMessageDialog(this, "Usuario eliminado exitosamente.");
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar el usuario: " + e.getMessage());
-        throw e; 
-    } finally {
-
-        try {
-            if (cx != null && !cx.isClosed()) {
-                cx.close();
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al cerrar la conexión: " + e.getMessage());
-        }
+        JOptionPane.showMessageDialog(null, "Error al intentar eliminar el usuario: " + e.getMessage());
     }
 
+    cargarUsuarios(); // Recarga la tabla de usuarios
     }//GEN-LAST:event_BtnBorrarActionPerformed
 
     private void BtnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnIngresarActionPerformed
-        // TODO add your handling code here:
+        
+      Connection cx = null;
+    PreparedStatement st = null;
+
+    try {
+        // Obtener valores de los campos
+        String cedula = txtIdUsuario.getText().trim();
+        String nombre = TxtNombre.getText().trim();
+        String apellido = TxtApellido.getText().trim();
+        String numeroCelular = TxtNumerCelular.getText().trim();
+        String contraseña = txtPassword.getText().trim();
+        String roles = ComboRoles.getSelectedItem().toString().trim();
+
+        // Validar que los campos no estén vacíos
+        if (cedula.isEmpty() || nombre.isEmpty() || apellido.isEmpty() ||
+            numeroCelular.isEmpty() || contraseña.isEmpty() || roles.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
+            return;
+        }
+
+        cx = CConexion.conecarDB();
+        String sql;
+
+        if (modoEdicion) {
+            // Actualizar datos de usuario existente
+            sql = "UPDATE users SET nome = ?, lastname = ?, phone = ?, password = ?, role = ? WHERE idUser = ?";
+            st = cx.prepareStatement(sql);
+            st.setString(1, nombre);
+            st.setString(2, apellido);
+            st.setString(3, numeroCelular);
+            st.setString(4, contraseña);
+            st.setString(5, roles);
+            st.setString(6, cedula);
+            st.executeUpdate();
+
+            // Actualizar la fila en la tabla
+            int filaSeleccionada = users.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                users.setValueAt(cedula, filaSeleccionada, 1);
+                users.setValueAt(nombre, filaSeleccionada, 2);
+                users.setValueAt(apellido, filaSeleccionada, 3);
+                users.setValueAt(numeroCelular, filaSeleccionada, 4);
+                users.setValueAt(contraseña, filaSeleccionada, 5);
+                users.setValueAt(roles, filaSeleccionada, 6);
+            }
+
+            JOptionPane.showMessageDialog(this, "Usuario actualizado correctamente.");
+        } else {
+            // Insertar nuevo usuario
+            sql = "INSERT INTO users (idUser, nome, lastname, phone, password, role) VALUES (?, ?, ?, ?, ?, ?)";
+            st = cx.prepareStatement(sql);
+            st.setString(1, cedula);
+            st.setString(2, nombre);
+            st.setString(3, apellido);
+            st.setString(4, numeroCelular);
+            st.setString(5, contraseña);
+            st.setString(6, roles);
+            st.executeUpdate();
+
+            // Agregar nuevo usuario a la tabla
+            DefaultTableModel model = (DefaultTableModel) users.getModel();
+            model.addRow(new Object[]{null, cedula, nombre, apellido, numeroCelular, contraseña, roles});
+
+            JOptionPane.showMessageDialog(this, "Usuario registrado correctamente.");
+        }
+
+        // Limpiar los campos después de guardar
+        limpiarCampos();
+        modoEdicion = false;
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar los datos: " + e.getMessage());
+    } finally {
+        try {
+            if (st != null) st.close();
+            if (cx != null) cx.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cerrar la conexión: " + e.getMessage());
+        }
+    }             
     }//GEN-LAST:event_BtnIngresarActionPerformed
 
     private void TxtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtApellidoActionPerformed
@@ -371,6 +423,40 @@ private void deleteUserById(String idUsuario) throws SQLException {
     private void txtIdUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtIdUsuarioActionPerformed
+
+    private void usersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersMouseClicked
+        // También deberías agregar un MouseListener a la tabla para seleccionar los datos
+
+    int fila = users.getSelectedRow();
+    if (fila != -1) {
+        txtIdUsuario.setText(users.getValueAt(fila, 1).toString()); // Cedula
+        TxtNombre.setText(users.getValueAt(fila, 2).toString());    // Nombre
+        TxtApellido.setText(users.getValueAt(fila, 3).toString());  // Apellido
+        TxtNumerCelular.setText(users.getValueAt(fila, 4).toString()); // Teléfono
+        txtPassword.setText(users.getValueAt(fila, 5).toString());   // Contraseña
+        ComboRoles.setSelectedItem(users.getValueAt(fila, 6).toString()); // Rol
+        
+        
+    }
+
+      
+    }//GEN-LAST:event_usersMouseClicked
+
+    private void TxtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtNombreActionPerformed
+
+    private void BtnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInicioActionPerformed
+        Login ventanaLogin = new Login();
+    ventanaLogin.setVisible(true);
+    this.dispose(); 
+    }//GEN-LAST:event_BtnInicioActionPerformed
+
+    private void BtnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSiguienteActionPerformed
+        GestionPaquete ventanaGestionPaquete = new GestionPaquete();
+    ventanaGestionPaquete.setVisible(true);
+    this.dispose(); 
+    }//GEN-LAST:event_BtnSiguienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -412,8 +498,11 @@ private void deleteUserById(String idUsuario) throws SQLException {
     private javax.swing.JButton BtnActualizar;
     private javax.swing.JButton BtnBorrar;
     private javax.swing.JButton BtnIngresar;
+    private javax.swing.JButton BtnInicio;
+    private javax.swing.JButton BtnSiguiente;
     private javax.swing.JComboBox<String> ComboRoles;
     private javax.swing.JTextField TxtApellido;
+    private javax.swing.JTextField TxtId;
     private javax.swing.JTextField TxtNombre;
     private javax.swing.JTextField TxtNumerCelular;
     private javax.swing.JLabel jLabel1;
@@ -425,6 +514,7 @@ private void deleteUserById(String idUsuario) throws SQLException {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -432,4 +522,6 @@ private void deleteUserById(String idUsuario) throws SQLException {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTable users;
     // End of variables declaration//GEN-END:variables
+
+    
 }

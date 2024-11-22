@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 public class InsertUser implements IInsert<User> {
 
-    private static final String INSERT = "Insert into users (nome, idUser, phone, password, lastname) values(?,?,?,?, ?)";
+    private static final String INSERT = "Insert into users (nome, idUser, phone, password, lastname, role) values(?,?,?,?, ?)";
 
     @Override
     public void insert(User user) throws SQLException {

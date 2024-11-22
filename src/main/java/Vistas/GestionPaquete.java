@@ -3,6 +3,7 @@ package Vistas;
 
 import Logic.command.DeletePaquete;
 import Logic.command.InsertPaquete;
+import Logic.command.UpdatePaquete;
 import Model.Paquete;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -11,6 +12,10 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Model.LogicaPaquetes;
+import database.CConexion;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -20,6 +25,9 @@ import java.util.UUID;
  */
 public class GestionPaquete extends javax.swing.JFrame {
         private LogicaPaquetes logica = new LogicaPaquetes(); 
+        private boolean modoEdicion = false; 
+        private String numeroSeguimientoActual = null; 
+
         
     public GestionPaquete() {
         initComponents();
@@ -53,9 +61,9 @@ public class GestionPaquete extends javax.swing.JFrame {
       
     
      private void cargarPaquetes() {
-        // Utiliza el modelo de LogicaPaquetes para llenar la tabla.
+       
         DefaultTableModel modelo = logica.mostrarPaquetes();
-        paquetes.setModel(modelo); // `paquetes` es tu JTable definido en el formulario.
+        paquetes.setModel(modelo); 
     }
     
      private void limpiarCampos() {
@@ -69,7 +77,7 @@ public class GestionPaquete extends javax.swing.JFrame {
      
      private void registrarPaquete() {
      String categorias = ComboCategorias.getSelectedItem() != null ? ComboCategorias.getSelectedItem().toString() : "";
-    Date fechaIngreso = JCalender.getDate(); // Obtener la fecha seleccionada
+    Date fechaIngreso = JCalender.getDate(); 
     String ubicacionActual = TxtUbicacionActual.getText();
     String destino = TxtDestino.getText();
 
@@ -78,9 +86,9 @@ public class GestionPaquete extends javax.swing.JFrame {
         return;
     }
 
-    // Generar el número de seguimiento
+    
     String numeroSeguimiento = generarNumeroSeguimiento();
-    TxtNumeroSeguimiento.setText(numeroSeguimiento); // Asignar el número de seguimiento al campo
+    TxtNumeroSeguimiento.setText(numeroSeguimiento); 
 
     
 }
@@ -113,7 +121,11 @@ public class GestionPaquete extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         paquetes = new javax.swing.JTable();
         TxtNumeroSeguimiento = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        TxtId = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        BtnInicio = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -129,23 +141,23 @@ public class GestionPaquete extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("N° Seguimiento");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 80, 117, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 117, -1));
 
         ComboCategorias.setBackground(new java.awt.Color(255, 255, 255));
         ComboCategorias.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         ComboCategorias.setForeground(new java.awt.Color(0, 0, 0));
         ComboCategorias.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Documentos", "Electrónicos", "Ropa y accesorios", "Hogar y decoración" }));
         ComboCategorias.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Categorías", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(0, 0, 0))); // NOI18N
-        jPanel1.add(ComboCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 150, 50));
+        jPanel1.add(ComboCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 150, 50));
 
         JCalender.setBackground(new java.awt.Color(255, 255, 255));
         JCalender.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(JCalender, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 180, 30));
+        jPanel1.add(JCalender, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 110, 180, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Fecha de Ingreso");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 90, -1, -1));
 
         TxtUbicacionActual.setBackground(new java.awt.Color(255, 255, 255));
         TxtUbicacionActual.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -184,7 +196,7 @@ public class GestionPaquete extends javax.swing.JFrame {
                 BtnRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, 30));
+        jPanel1.add(BtnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, 30));
 
         btnBorrar.setBackground(new java.awt.Color(255, 255, 255));
         btnBorrar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -249,12 +261,44 @@ public class GestionPaquete extends javax.swing.JFrame {
                 TxtNumeroSeguimientoActionPerformed(evt);
             }
         });
-        jPanel1.add(TxtNumeroSeguimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 260, 30));
+        jPanel1.add(TxtNumeroSeguimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 260, 30));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Id");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 30, -1));
+
+        TxtId.setBackground(new java.awt.Color(255, 255, 255));
+        TxtId.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TxtId.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(TxtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 160, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Desktop\\SafeTracking\\src\\main\\java\\Resources\\Imagenes\\Simple Lined White Login Page Wireframe Website UI Prototype.png")); // NOI18N
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 550));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 1040, 550));
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(0, 0, 0));
+        jButton1.setText("Atras");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 610, -1, -1));
+
+        BtnInicio.setBackground(new java.awt.Color(255, 255, 255));
+        BtnInicio.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        BtnInicio.setForeground(new java.awt.Color(0, 0, 0));
+        BtnInicio.setText("Inicio");
+        BtnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnInicioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 610, -1, -1));
 
         jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\juand\\OneDrive\\Desktop\\SafeTracking\\src\\main\\java\\Resources\\Imagenes\\UI Login Page Desktop Prototype (1).png")); // NOI18N
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 1270, 650));
@@ -263,39 +307,107 @@ public class GestionPaquete extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
+            Connection cx = null;
+    PreparedStatement st = null;
 
-        String numeroSeguimiento = TxtNumeroSeguimiento.getText().trim();
-        String categorias = ComboCategorias.getSelectedItem() != null ? ComboCategorias.getSelectedItem().toString() : "";
-        Date fechaIngreso = JCalender.getDate();
-        String ubicacionActual = TxtUbicacionActual.getText().trim();
-        String destino = TxtDestino.getText().trim();
-        String cedula = TxCedulaRepartidor.getText().trim();
+    try {
+        
+        String numeroSeguimiento = TxtNumeroSeguimiento.getText();
+        String categoria = ComboCategorias.getSelectedItem().toString();
+        LocalDate fechaIngreso = JCalender.getDate().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        String ubicacionActual = TxtUbicacionActual.getText();
+        String destino = TxtDestino.getText();
+        String cedulaRepartidor = TxCedulaRepartidor.getText();
 
-        if (numeroSeguimiento.isEmpty() || categorias.isEmpty() || fechaIngreso == null ||
-            ubicacionActual.isEmpty() || destino.isEmpty() || cedula.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, llene todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+        
+        if (numeroSeguimiento.isEmpty() || categoria.isEmpty() || ubicacionActual.isEmpty() ||
+                destino.isEmpty() || cedulaRepartidor.isEmpty() || fechaIngreso == null) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios.");
             return;
         }
 
-        LocalDate fechaIngresoLocalDate = fechaIngreso.toInstant()
-        .atZone(ZoneId.systemDefault())
-        .toLocalDate();
+        if (modoEdicion) {
+            
+            if (numeroSeguimientoActual == null) {
+                JOptionPane.showMessageDialog(this, "No se puede actualizar el paquete. El número de seguimiento no está definido.");
+                return;
+            }
 
-        Paquete paquete = new Paquete(numeroSeguimiento, categorias, fechaIngresoLocalDate, ubicacionActual, destino, cedula);
+          
+            Paquete paqueteActualizado = new Paquete(
+                    numeroSeguimientoActual, categoria, fechaIngreso,
+                    ubicacionActual, destino, cedulaRepartidor
+            );
 
-        InsertPaquete insertPaquete = new InsertPaquete();
-        try {
-            insertPaquete.insert(paquete);
-            JOptionPane.showMessageDialog(this, "Paquete registrado correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            limpiarCampos();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error al guardar el paquete: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            limpiarCampos();
+            
+            UpdatePaquete updater = new UpdatePaquete();
+            updater.update(paqueteActualizado);
+
+           
+            int filaSeleccionada = paquetes.getSelectedRow();
+            if (filaSeleccionada != -1) { 
+                paquetes.setValueAt(numeroSeguimiento, filaSeleccionada, 0);
+                paquetes.setValueAt(categoria, filaSeleccionada, 1); 
+                paquetes.setValueAt(java.sql.Date.valueOf(fechaIngreso), filaSeleccionada, 2); 
+                paquetes.setValueAt(ubicacionActual, filaSeleccionada, 3); 
+                paquetes.setValueAt(destino, filaSeleccionada, 4); 
+                paquetes.setValueAt(cedulaRepartidor, filaSeleccionada, 5); 
+            }
+
+            JOptionPane.showMessageDialog(this, "Paquete actualizado correctamente.");
+        } else {
+            
+            Paquete nuevoPaquete = new Paquete(
+                    numeroSeguimiento, categoria, fechaIngreso,
+                    ubicacionActual, destino, cedulaRepartidor
+            );
+
+            
+            cx = CConexion.conecarDB();
+            String sql = "INSERT INTO paquetes (numeroSeguimiento, categorias, fechaDeIngreso, ubicacionActual, destino, cedulaRepartidor) VALUES (?, ?, ?, ?, ?, ?)";
+            st = cx.prepareStatement(sql);
+            st.setString(1, numeroSeguimiento);
+            st.setString(2, categoria);
+            st.setDate(3, java.sql.Date.valueOf(fechaIngreso));
+            st.setString(4, ubicacionActual);
+            st.setString(5, destino);
+            st.setString(6, cedulaRepartidor);
+            st.execute();
+
+            
+            DefaultTableModel model = (DefaultTableModel) paquetes.getModel();
+            model.addRow(new Object[]{
+                    numeroSeguimiento, categoria, java.sql.Date.valueOf(fechaIngreso),
+                    ubicacionActual, destino, cedulaRepartidor
+            });
+
+            JOptionPane.showMessageDialog(this, "Paquete registrado correctamente.");
         }
-         // Refrescar la tabla después del registro.
-        cargarPaquetes();
-        JOptionPane.showMessageDialog(this, "Paquete registrado exitosamente.");
+
+       
         limpiarCampos();
+        modoEdicion = false;
+        numeroSeguimientoActual = null;
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al guardar el paquete: " + e.getMessage());
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + e.getMessage());
+    } finally {
+        try {
+            if (st != null) {
+                st.close();
+            }
+            if (cx != null) {
+                cx.close();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cerrar la conexión: " + e.getMessage());
+        }
+    }
+      
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
@@ -324,6 +436,78 @@ public class GestionPaquete extends javax.swing.JFrame {
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
             cargarPaquetes();
+            
+          try {
+        // Validar campos y obtener los datos
+        if (!validarCampos()) {
+            return; // Si la validación falla, salir del método
+        }
+        
+        // Obtener valores de los campos
+        String numeroSeguimiento = TxtNumeroSeguimiento.getText();
+        String categoria = ComboCategorias.getSelectedItem().toString();
+        LocalDate fechaIngreso = JCalender.getDate().toInstant()
+                                         .atZone(ZoneId.systemDefault())
+                                         .toLocalDate();
+        String ubicacionActual = TxtUbicacionActual.getText();
+        String destino = TxtDestino.getText();
+        String cedulaRepartidor = TxCedulaRepartidor.getText();
+
+        // Crear el paquete actualizado
+        Paquete paqueteActualizado = new Paquete(
+            numeroSeguimiento, categoria, fechaIngreso,
+            ubicacionActual, destino, cedulaRepartidor
+        );
+
+        // Actualizar en la base de datos
+        UpdatePaquete updater = new UpdatePaquete();
+        updater.update(paqueteActualizado);  // Llamada al método de actualización
+
+        // Si no hubo error, actualizar los datos en la tabla
+        int filaSeleccionada = paquetes.getSelectedRow();
+        if (filaSeleccionada != -1) {  // Verificar si hay una fila seleccionada
+            actualizarFilaTabla(filaSeleccionada, numeroSeguimiento, categoria, fechaIngreso, 
+                                 ubicacionActual, destino, cedulaRepartidor);
+            JOptionPane.showMessageDialog(this, "Paquete actualizado correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un paquete para actualizar.");
+        }
+
+        // Limpiar campos y cambiar a modo de visualización
+        limpiarCampos();
+        modoEdicion = false;  // Salir del modo edición
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error al actualizar el paquete: " + e.getMessage());
+    } catch (HeadlessException e) {
+        JOptionPane.showMessageDialog(this, "Ocurrió un error inesperado: " + e.getMessage());
+    }
+}
+
+// Método para validar campos
+private boolean validarCampos() {
+    String numeroSeguimiento = TxtNumeroSeguimiento.getText();
+    String categoria = ComboCategorias.getSelectedItem().toString();
+    String ubicacionActual = TxtUbicacionActual.getText();
+    String destino = TxtDestino.getText();
+    String cedulaRepartidor = TxCedulaRepartidor.getText();
+    
+    if (numeroSeguimiento.isEmpty() || categoria.isEmpty() ||
+        ubicacionActual.isEmpty() || destino.isEmpty() || cedulaRepartidor.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Todos los campos son obligatorios para actualizar.");
+        return false;
+    }
+    return true;
+}
+
+// Método para actualizar la fila en la tabla
+private void actualizarFilaTabla(int fila, String numeroSeguimiento, String categoria, LocalDate fechaIngreso,
+                                  String ubicacionActual, String destino, String cedulaRepartidor) {
+    paquetes.setValueAt(numeroSeguimiento, fila, 0);  // Número de seguimiento
+    paquetes.setValueAt(categoria, fila, 1);          // Categoría
+    paquetes.setValueAt(java.sql.Date.valueOf(fechaIngreso), fila, 2);  // Fecha de ingreso
+    paquetes.setValueAt(ubicacionActual, fila, 3);    // Ubicación actual
+    paquetes.setValueAt(destino, fila, 4);            // Destino
+    paquetes.setValueAt(cedulaRepartidor, fila, 5);    // Cédula repartidor
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void TxtNumeroSeguimientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtNumeroSeguimientoActionPerformed
@@ -331,26 +515,34 @@ public class GestionPaquete extends javax.swing.JFrame {
     }//GEN-LAST:event_TxtNumeroSeguimientoActionPerformed
 
     private void paquetesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_paquetesMouseClicked
-        // Obtener la fila seleccionada en la tabla
-    int filaSeleccionada = paquetes.rowAtPoint(evt.getPoint());
-
-    // Verificar si la fila seleccionada es válida (que no sea -1, que significa que no se seleccionó ninguna fila)
+        int filaSeleccionada = paquetes.getSelectedRow();
     if (filaSeleccionada != -1) {
+        // Obtén los datos directamente del modelo de la tabla
+        TxtId.setText(paquetes.getValueAt(filaSeleccionada, 0).toString()); // Columna del ID
+        TxtNumeroSeguimiento.setText(paquetes.getValueAt(filaSeleccionada, 1).toString()); // Columna del número de seguimiento
+        ComboCategorias.setSelectedItem(paquetes.getValueAt(filaSeleccionada, 2).toString()); // Categoría
+        JCalender.setDate(java.sql.Date.valueOf(paquetes.getValueAt(filaSeleccionada, 3).toString())); // Fecha
+        TxtUbicacionActual.setText(paquetes.getValueAt(filaSeleccionada, 4).toString()); // Ubicación actual
+        TxtDestino.setText(paquetes.getValueAt(filaSeleccionada, 5).toString()); // Destino
+        TxCedulaRepartidor.setText(paquetes.getValueAt(filaSeleccionada, 6).toString()); // Cédula repartidor
         
-        // Cargar los datos de la fila seleccionada en los campos correspondientes
-        TxtNumeroSeguimiento.setText(paquetes.getValueAt(filaSeleccionada, 1).toString());
-        ComboCategorias.setSelectedItem(paquetes.getValueAt(filaSeleccionada, 2).toString());
-        Date fechaIngreso = (Date) paquetes.getValueAt(filaSeleccionada, 3);
-        JCalender.setDate(fechaIngreso);
-        TxtUbicacionActual.setText(paquetes.getValueAt(filaSeleccionada, 4).toString());
-        TxtDestino.setText(paquetes.getValueAt(filaSeleccionada, 5).toString());
-        TxCedulaRepartidor.setText(paquetes.getValueAt(filaSeleccionada, 6).toString());
-        
-        // Habilitar los botones de borrar y actualizar
-        btnBorrar.setEnabled(true);
-        btnActualizar.setEnabled(true);
+        // Cambiar a modo edición
+        modoEdicion = true;
     }
+    
     }//GEN-LAST:event_paquetesMouseClicked
+
+    private void BtnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInicioActionPerformed
+        Login ventanaLogin = new Login();
+    ventanaLogin.setVisible(true);
+    this.dispose(); 
+    }//GEN-LAST:event_BtnInicioActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       GestiónUsuarios ventanaGestiónUsuarios = new GestiónUsuarios();
+    ventanaGestiónUsuarios.setVisible(true);
+    this.dispose(); 
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -388,15 +580,18 @@ public class GestionPaquete extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnInicio;
     private javax.swing.JButton BtnRegistrar;
     private javax.swing.JComboBox<String> ComboCategorias;
     private com.toedter.calendar.JDateChooser JCalender;
     private javax.swing.JTextField TxCedulaRepartidor;
     private javax.swing.JTextField TxtDestino;
+    private javax.swing.JTextField TxtId;
     private javax.swing.JTextField TxtNumeroSeguimiento;
     private javax.swing.JTextField TxtUbicacionActual;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -405,6 +600,7 @@ public class GestionPaquete extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable paquetes;
